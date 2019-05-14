@@ -1,32 +1,34 @@
+
 <template>
-	<section class="container">
-		<div>
-			<img width="256" src="~/assets/img/logo.png">
-			<h1>elecnuxt</h1>
-			<h2>Nuxt + Electron</h2>
-			<a href="https://nuxtjs.org/" target="_blank" class="btn btn-primary">Documentation</a>
-			<a href="https://github.com/nuxt/nuxt.js" target="_blank" class="btn btn-primary">GitHub</a>
-			<a href="https://electronjs.org/" target="_blank" class="btn btn-secondary">Electron</a>
-			<a href="https://github.com/electron-userland/electron-builder" target="_blank" class="btn btn-secondary">Electron Builder</a>
-		</div>
-		<v-card> cool </v-card>
-	</section>
+
+<v-layout row>
+  <PathCard :light="true" direction="origen" :height="height" :key="0"/>
+  <PathCard :light="false" direction="destino" :height="height" :key="1"/>
+  
+  </v-layout>
 </template>
 
 <script>
+import PathCard from '../components/PathCard'
 export default {
+  data () {
+    return {
+      height: 0
+    }
+  },
+  watch: {
+  },
+  components: {
+    PathCard
+  },
+  mounted () {
+    // this.fetch()
+    this.height = window.innerHeight * 0.7
+  },
+  methods: {
+
+  }
 }
 </script>
 
-<style scoped>
-.container {
-	min-height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-}
-.btn {
-	margin: 0 8px;
-}
-</style>
+

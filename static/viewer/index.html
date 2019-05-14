@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Markovify</title>
+  <link rel="stylesheet" href="app.css">
+  <script type='text/javascript' src='http://localhost:8686/eel.js'></script>
+  <script type='text/javascript' src='../eel.config.js'></script>
+</head>
+
+<body>
+  <div id="canvas">
+  </div>
+
+</body>
+
+<script src="vue.min.js"></script>
+<script>
+  window.childVue = new Vue({
+
+    el: '#canvas',
+
+    data: parent.parent.data,
+
+    mounted() {
+      console.log('mounted')
+      this.create_markov_chain()
+    },
+
+    watch: {
+      buttonPressed: async function () {
+
+        this.buttonPressed = false
+        await eel.solve_markov_chain(this.selected_states)(result => this.availabity = result)
+      },
+      runFunction: async function () {
+        if (this.runFunction === true) {
+          this.selected = {
+            'label': this.selected.label,
+            'target': this.selected.target.label
+          }
+          await eel.search_transition_from_text(this.selected,this.value)(result => console.log(result))
+          // console.log(this.runFunction)
+          this.runFunction = false
+          change_text(this.value)
+        }
+      }
+    },
+
+    methods: {
+      print: function (text) {
+        eel.logger(this.count + 1)
+        console.log(text)
+      },
+
+      create_markov_chain: async function () {
+        await eel.create_markov_chain()(result => {console.log(result)})
+      },
+
+      append_node: async function (nodeid) {
+        await eel.create_node(nodeid)(result => {console.log(result)})
+      },
+
+      append_transition: async function (from_node, to_node){
+        await eel.create_transition(from_node, to_node, 0.3)(result => {console.log(result)})
+
+      },
+
+    }
+  });
+</script>
+<script src="d3.v3.min.js"></script>
+<script src="app.js"></script>
+
+</html>
