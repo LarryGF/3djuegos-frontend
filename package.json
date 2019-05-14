@@ -10,7 +10,7 @@
     "directories": {
       "buildResources": "static"
     },
-    "extraResources": ["./pysrc", "./pyenv"]
+    "extraResources": ["./pysrc", "./pyenv", "./boot.sh"]
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",

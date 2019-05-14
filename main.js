@@ -109,7 +109,7 @@ const selectPort = () => {
 
 const createPyExample = () => {
 	let home = path.join(__dirname, '..', 'pyenv')
-	let boot = path.join(__dirname, '..', 'pyenv', 'boot.sh')
+	let boot = path.join(__dirname, '..', 'boot.sh')
 	process.env.PYTHONHOME = home
 	let python_path = path.join(home, 'bin', 'python')
 	let uvicorn = path.join(home, 'bin', 'uvicorn')
@@ -123,7 +123,7 @@ const createPyExample = () => {
 
 	if (pyProc != null) {
 		// console.log(pyProc)
-		console.log('child process success on port ' + __dirname)
+		console.log('child process success on port ' + boot)
 	}
 }
 
