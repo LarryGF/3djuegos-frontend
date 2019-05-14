@@ -1,0 +1,43 @@
+{
+    "C:/":{
+        "folders":{
+            "home":{
+                "folders":{
+                    "larry":{
+                        "folders":{
+                            "videos":{
+                                "folders":{},
+                                "files":[]
+                            },
+                            "imagenes":{
+                                "folders":{},
+                                "files":[]
+                            }
+
+                        },
+                        "files":[]
+                    },
+                    "kvothe":{
+                        "folders":{},
+                        "files":[
+                            "picha.mkv",
+                            "loca.avi"
+                        ]
+                    }
+                },
+                "files":[]
+            }
+        },
+        "files":[
+            "loren.json",
+            "caca.jpeg"
+        ]
+
+        
+    },
+    "D:/":{
+        "folders":{},
+        "files":[]
+
+    }
+} 
