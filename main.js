@@ -72,23 +72,23 @@ let pyProc = null
 let pyPort = null
 
 const guessPackaged = () => {
-  const fullPath = path.join(__dirname, PY_DIST_FOLDER)
-  return require('fs').existsSync(fullPath)
+	const fullPath = path.join(__dirname, PY_DIST_FOLDER)
+	return require('fs').existsSync(fullPath)
 }
 
 const getScriptPath = () => {
-  if (!guessPackaged()) {
-    return path.join(__dirname, PY_FOLDER, PY_MODULE + '.py')
-  }
-  if (process.platform === 'win32') {
-    return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE + '.exe')
-  }
-  return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE)
+	if (!guessPackaged()) {
+		return path.join(__dirname, PY_FOLDER, PY_MODULE + '.py')
+	}
+	if (process.platform === 'win32') {
+		return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE + '.exe')
+	}
+	return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE)
 }
 
 const selectPort = () => {
-  pyPort = 4242
-  return pyPort
+	pyPort = 4242
+	return pyPort
 }
 
 // const createPyProc = () => {
@@ -100,7 +100,7 @@ const selectPort = () => {
 //   } else {
 //     pyProc = require('child_process').spawn('python', [script, port])
 //   }
- 
+
 //   if (pyProc != null) {
 //     //console.log(pyProc)
 //     console.log('child process success on port ' + port)
@@ -108,25 +108,32 @@ const selectPort = () => {
 // }
 
 const createPyExample = () => {
-  let script = path.join(__dirname, '..', 'pysrc', 'main.py')
-  let port = '' + selectPort()
+	let home = path.join(__dirname, '..', 'pyenv')
+	let boot = path.join(__dirname, '..', 'pyenv', 'boot.sh')
+	process.env.PYTHONHOME = home
+	let python_path = path.join(home, 'bin', 'python')
+	let uvicorn = path.join(home, 'bin', 'uvicorn')
+	let port = '' + selectPort()
 
-  console.log('child process success on port ' + port)
-    console.log('child process success on port ' + script)
+	console.log(home)
+	console.log(python_path)
+	console.log(uvicorn)
 
-  pyProc = require('child_process').spawn('python', [script])
+	pyProc = require('child_process').spawn(boot, [], {detached: true})
 
-  if (pyProc != null) {
-    // console.log(pyProc)
-    console.log('child process success on port ' + script)
-  }
+	if (pyProc != null) {
+		// console.log(pyProc)
+		console.log('child process success on port ' + __dirname)
+	}
 }
 
 const exitPyProc = () => {
-  pyProc.kill()
-  pyProc = null
-  pyPort = null
+	// pyProc.kill()
+	process.kill(-pyProc.pid)
+	pyProc = null
+	pyPort = null
 }
-
-app.on('ready', createPyExample)
-app.on('will-quit', exitPyProc)
+if (!config.dev) {
+	app.on('ready', createPyExample)
+	app.on('will-quit', exitPyProc)
+}
