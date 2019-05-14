@@ -110,8 +110,14 @@ const selectPort = () => {
 const createPyExample = () => {
 	let home = path.join(__dirname, '..', 'pyenv')
 	let boot = path.join(__dirname, '..', 'boot.sh')
-	process.env.PYTHONHOME = home
 	let python_path = path.join(home, 'bin', 'python')
+
+	if (process.platform === 'win32') {
+		boot = path.join(__dirname, '..', 'boot.bat')
+		python_path += '.exe'
+
+	}
+	process.env.PYTHONHOME = home
 	let uvicorn = path.join(home, 'bin', 'uvicorn')
 	let port = '' + selectPort()
 
