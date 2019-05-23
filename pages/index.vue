@@ -2,69 +2,92 @@
 <template>
   <v-layout row wrap v-if="games">
     <!-- <v-card flat> -->
+    <v-toolbar light app color="rgba(255,255,255,0.9)">
+      
+      <v-flex xs4>
 
-     
-          <v-toolbar light app color="rgba(255,255,255,0.9)">
-            <!-- <v-toolbar-title>Title</v-toolbar-title> -->
-
-            <v-text-field
-              label="Filtra"
-              v-model="value"
-              @keyup.enter.native.stop="filter"
-              append-icon="cancel"
-              @click:append="restore"
-            ></v-text-field>
-            <v-spacer></v-spacer>
-
-            <v-btn icon>
-              <v-icon>reply</v-icon>
-            </v-btn>
-
-            <v-btn icon>
-              <v-icon>more_vert</v-icon>
-            </v-btn>
-          </v-toolbar>
+      <v-text-field
+        label="Filtra"
+        v-model="value"
+        @keyup.enter.native.stop="filter"
+        append-icon="cancel"
+        @click:append="restore"
+        outline
+        class="mt-2"
+      ></v-text-field>
+      </v-flex>
+      <v-spacer></v-spacer>
+      <BottomSheet :label="'Géneros'" :color="'purple'" :items="genres"/>
+      <BottomSheet :label="'Sistema Operativo'" :color="'blue'" :items="os"/>
+      <BottomSheet :label="'Plataformas'" :color="'primary'" :items="platforms"/>
+      <BottomSheet :label="'Desarrollador'" :color="'cyan'" :items="publishers"/>
+    
+      
+    </v-toolbar>
 
     <!-- </v-card> -->
     <!-- {{games[0]}} -->
-    <Cover v-for="game in showGames" :key="game.name" :game="game" :height="height" :width="width"/>
+    <Cover v-for="game in showGames" :key="game.name" :game="game" :height="height" :width="width" 
+    />
   </v-layout>
   <div v-else>loren</div>
 </template>
 
 <script>
-import Cover from "../components/Cover"
+import Cover from "../components/Cover";
+import BottomSheet from "../components/BottomSheet"
 export default {
   data() {
     return {
+      value:'',
       height: 0,
       width: 0,
       games: null,
       showGames: [],
       backedGames: [],
-      count: 0
+      count: 0,
+      genres:[],
+      os:[],
+      platforms:[],
+      publishers:[]
     };
+  },
+  computed:{
+     
   },
 
   watch: {},
   components: {
-    Cover
+    Cover,
+    BottomSheet
   },
   mounted() {
     // this.fetch()
     this.height = window.innerHeight;
     this.width = window.innerWidth;
-    this.getInitialData();
+    this.getGames();
     this.scroll();
+    this.getFilters()
   },
   methods: {
-    getInitialData: async function() {
+    getGames: async function() {
       this.games = (await this.$axios.get("/db/db.json")).data;
-      for (this.count; this.count < 21; this.count++) {
+      for (this.count; this.count < 24; this.count++) {
         this.showGames.push(this.games[this.count]);
       }
 
       // console.log(this.$router)
+    },
+    getFilters: async function (){
+      this.publishers = (await this.$axios.get("/db/publishers.json")).data;
+      this.publishers = this.publishers.map((element)=>Object({name:element, selected:true}))
+      this.platforms = (await this.$axios.get("/db/platforms.json")).data;
+      this.platforms = this.platforms.map((element)=>Object({name:element, selected:true}))
+      this.os = (await this.$axios.get("/db/os.json")).data;
+      this.os = this.os.map((element)=>Object({name:element, selected:true}))
+      this.genres = (await this.$axios.get("/db/genres.json")).data;
+      this.genres = this.genres.map((element)=>Object({name:element, selected:true}))
+
     },
     scroll: function() {
       window.onscroll = () => {
@@ -73,7 +96,7 @@ export default {
           document.documentElement.offsetHeight;
 
         if (bottomOfWindow && this.backedGames.length === 0) {
-          for (var i = 0; i < 9; i++) {
+          for (var i = 0; i < 12; i++) {
             this.count++;
             this.showGames.push(this.games[this.count]);
           }
@@ -83,13 +106,10 @@ export default {
     filter: function() {
       console.log("filtering");
       this.backedGames = this.backedGames.concat(this.showGames);
-      this.showGames = []
+      this.showGames = [];
       for (var game in this.games) {
-        
         if (
-          this.games[game].name
-            .toLowerCase()
-            .includes(this.value.toLowerCase())
+          this.games[game].name.toLowerCase().includes(this.value.toLowerCase())
         ) {
           this.showGames.push(this.games[game]);
         }
@@ -101,6 +121,9 @@ export default {
       this.backedGames = [];
       this.$forceUpdate();
       this.value = "";
+    },
+    hover: function(){
+      console.log('hover')
     }
   }
 };
