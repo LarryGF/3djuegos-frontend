@@ -40,11 +40,11 @@ const newWin = () => {
 	win.on('closed', () => win = null)
 	if (config.dev) {
 		// Install vue dev tool and open chrome dev tools
-		const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
-		installExtension(VUEJS_DEVTOOLS.id).then(name => {
-			console.log(`Added Extension:  ${name}`)
-			win.webContents.openDevTools()
-		}).catch(err => console.log('An error occurred: ', err))
+		// const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
+		// installExtension(VUEJS_DEVTOOLS.id).then(name => {
+		// 	console.log(`Added Extension:  ${name}`)
+		// 	win.webContents.openDevTools()
+		// }).catch(err => console.log('An error occurred: ', err))
 		// Wait for nuxt to build
 		const pollServer = () => {
 			http.get(_NUXT_URL_, (res) => {

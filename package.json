@@ -6,7 +6,7 @@
   "private": true,
   "main": "main.js",
   "build": {
-    "appId": "",
+    "appId": "GamesCatalog",
     "directories": {
       "buildResources": "static"
     },
