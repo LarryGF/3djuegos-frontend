@@ -1,16 +1,54 @@
 
 <template>
   <v-layout row wrap v-if="games">
+   <!-- <v-card flat> -->
+    <v-container fluid>
+      <v-layout row child-flex wrap>
+        <div>
+          <v-toolbar light>
+            <v-btn icon class="hidden-xs-only">
+              <v-icon>arrow_back</v-icon>
+            </v-btn>
+
+            <v-toolbar-title>Title</v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon class="hidden-xs-only">
+              <v-icon>search</v-icon>
+            </v-btn>
+          </v-toolbar>
+        </div>
+
+        <div >
+          <v-toolbar>
+            <v-toolbar-title>Title</v-toolbar-title>
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+              <v-icon>reply</v-icon>
+            </v-btn>
+
+            <v-btn icon>
+              <v-icon>more_vert</v-icon>
+            </v-btn>
+          </v-toolbar>
+        </div>
+      </v-layout>
+    </v-container>
+  <!-- </v-card> -->
     <!-- {{games[0]}} -->
-    <v-flex xs4 v-for="game in showGames" :key="game.name">
-      <v-layout column>
-        {{game.name}}
+    <v-flex xs3 v-for="game in showGames" :key="game.name">
+      <v-layout column my-2 mx-2 >
         <v-img
           :src="game.image"
-          contain
-          :max-height="0.3*height"
+          :max-height="0.35*height"
+          :max-width ="0.25*width"
           lazy-src="images/dissidia-012-prologus.jpg"
-        ></v-img>
+        >
+        
+        {{game.name}}
+        </v-img>
       </v-layout>
     </v-flex>
   </v-layout>
@@ -23,6 +61,7 @@ export default {
   data() {
     return {
       height: 0,
+      width:0,
       games: null,
       showGames: [],
       count: 0
@@ -36,6 +75,7 @@ export default {
   mounted() {
     // this.fetch()
     this.height = window.innerHeight;
+    this.width = window.innerWidth;
     this.getInitialData();
     this.scroll()
   },
