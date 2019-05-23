@@ -114,7 +114,9 @@ export default {
     },
     filter: function() {
       console.log("filtering");
-      this.backedGames = this.backedGames.concat(this.showGames);
+      if(this.value !== ''){
+
+        this.backedGames = this.backedGames.concat(this.showGames);
       this.showGames = [];
       for (var game in this.games) {
         if (
@@ -123,7 +125,8 @@ export default {
           this.showGames.push(this.games[game]);
         }
       }
-      console.log(this.backedGames);
+      }
+      // console.log(this.backedGames);
     },
     restore: function() {
       this.showGames = this.backedGames;

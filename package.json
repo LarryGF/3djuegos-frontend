@@ -7,12 +7,16 @@
   "main": "main.js",
   "build": {
     "appId": "GamesCatalog",
-    "productName":"GamesCatalog",
+    "productName": "GamesCatalog",
     "directories": {
       "buildResources": "static",
-      "files":"static/*"
+      "files": "static/*"
     },
-    "extraResources": ["./pysrc", "./pyenv", "./boot.sh"]
+    "extraResources": [
+      "./pysrc",
+      "./pyenv",
+      "./boot.sh"
+    ]
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
@@ -21,9 +25,11 @@
     "electron": " electron-builder "
   },
   "dependencies": {
+    "@mdi/font": "^3.6.95",
     "@nuxtjs/axios": "^5.4.1",
     "@nuxtjs/vuetify": "^0.5.5",
-    "nuxt": "^1.4.0",
+    "acorn": "^6.1.1",
+    "nuxt": "^2.7.1",
     "vuetify-loader": "^1.2.2"
   },
   "devDependencies": {
@@ -32,9 +38,9 @@
     "electron": "2.0.0-beta.7",
     "electron-builder": "^20.8.1",
     "electron-devtools-installer": "^2.2.3",
-    "eslint": "^4.15.0",
+    "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
+    "eslint-loader": "^2.1.2",
     "eslint-plugin-vue": "^4.0.0"
   }
 }
