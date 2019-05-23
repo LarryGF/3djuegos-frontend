@@ -1,6 +1,6 @@
 <template>
     <v-flex xs3 >
-      <v-layout column my-2 mx-2>
+      <v-layout column my-2 mx-2 fill-height>
         <v-img
           :src="game.image"
           :max-height="0.3*height"
@@ -10,6 +10,11 @@
         >
         <v-layout column fill-height justify-end>
             <h3 class="ml-3">{{game.name}}</h3 >
+            <v-badge
+            overlap
+            right
+            color="purple"
+            >6</v-badge>
         </v-layout>
         
         
