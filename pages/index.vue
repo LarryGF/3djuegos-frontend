@@ -1,28 +1,19 @@
 
 <template>
   <v-layout row wrap v-if="games">
-   <!-- <v-card flat> -->
-    <v-container fluid>
-      <v-layout row child-flex wrap>
-        <div>
-          <v-toolbar light>
-            <v-btn icon class="hidden-xs-only">
-              <v-icon>arrow_back</v-icon>
-            </v-btn>
+    <!-- <v-card flat> -->
 
-            <v-toolbar-title>Title</v-toolbar-title>
+     
+          <v-toolbar light app color="rgba(255,255,255,0.9)">
+            <!-- <v-toolbar-title>Title</v-toolbar-title> -->
 
-            <v-spacer></v-spacer>
-
-            <v-btn icon class="hidden-xs-only">
-              <v-icon>search</v-icon>
-            </v-btn>
-          </v-toolbar>
-        </div>
-
-        <div >
-          <v-toolbar>
-            <v-toolbar-title>Title</v-toolbar-title>
+            <v-text-field
+              label="Filtra"
+              v-model="value"
+              @keyup.enter.native.stop="filter"
+              append-icon="cancel"
+              @click:append="restore"
+            ></v-text-field>
             <v-spacer></v-spacer>
 
             <v-btn icon>
@@ -33,51 +24,38 @@
               <v-icon>more_vert</v-icon>
             </v-btn>
           </v-toolbar>
-        </div>
-      </v-layout>
-    </v-container>
-  <!-- </v-card> -->
+
+    <!-- </v-card> -->
     <!-- {{games[0]}} -->
-    <v-flex xs3 v-for="game in showGames" :key="game.name">
-      <v-layout column my-2 mx-2 >
-        <v-img
-          :src="game.image"
-          :max-height="0.35*height"
-          :max-width ="0.25*width"
-          lazy-src="images/dissidia-012-prologus.jpg"
-        >
-        
-        {{game.name}}
-        </v-img>
-      </v-layout>
-    </v-flex>
+    <Cover v-for="game in showGames" :key="game.name" :game="game" :height="height" :width="width"/>
   </v-layout>
   <div v-else>loren</div>
 </template>
 
 <script>
-import PathCard from "../components/PathCard";
+import Cover from "../components/Cover"
 export default {
   data() {
     return {
       height: 0,
-      width:0,
+      width: 0,
       games: null,
       showGames: [],
+      backedGames: [],
       count: 0
     };
   },
 
   watch: {},
   components: {
-    PathCard
+    Cover
   },
   mounted() {
     // this.fetch()
     this.height = window.innerHeight;
     this.width = window.innerWidth;
     this.getInitialData();
-    this.scroll()
+    this.scroll();
   },
   methods: {
     getInitialData: async function() {
@@ -90,15 +68,39 @@ export default {
     },
     scroll: function() {
       window.onscroll = () => {
-        let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight ;
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
 
-        if (bottomOfWindow){
-          for (var i=0;i<9;i++){
-            this.count++
-            this.showGames.push(this.games[this.count])
+        if (bottomOfWindow && this.backedGames.length === 0) {
+          for (var i = 0; i < 9; i++) {
+            this.count++;
+            this.showGames.push(this.games[this.count]);
           }
         }
+      };
+    },
+    filter: function() {
+      console.log("filtering");
+      this.backedGames = this.backedGames.concat(this.showGames);
+      this.showGames = []
+      for (var game in this.games) {
+        
+        if (
+          this.games[game].name
+            .toLowerCase()
+            .includes(this.value.toLowerCase())
+        ) {
+          this.showGames.push(this.games[game]);
+        }
       }
+      console.log(this.backedGames);
+    },
+    restore: function() {
+      this.showGames = this.backedGames;
+      this.backedGames = [];
+      this.$forceUpdate();
+      this.value = "";
     }
   }
 };
