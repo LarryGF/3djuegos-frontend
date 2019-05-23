@@ -7,8 +7,10 @@
   "main": "main.js",
   "build": {
     "appId": "GamesCatalog",
+    "productName":"GamesCatalog",
     "directories": {
-      "buildResources": "static"
+      "buildResources": "static",
+      "files":"static/*"
     },
     "extraResources": ["./pysrc", "./pyenv", "./boot.sh"]
   },

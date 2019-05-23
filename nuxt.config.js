@@ -20,11 +20,8 @@ module.exports = {
 			rel: 'icon',
 			type: 'image/x-icon',
 			href: '/favicon.ico'
-		  },
-		  {
-			rel: 'stylesheet',
-			href: 'material.css'
 		  }
+		 
 		  ],
 }, // Headers of the page
 	loading: true, // Disable default loading bar
@@ -45,6 +42,7 @@ module.exports = {
 	},
 	dev: process.env.NODE_ENV === 'DEV',
 	css: [
-		'@/assets/css/global.css'
+		'@/assets/css/global.css',
+		'@/assets/css/material.css'
 	]
 }

@@ -10,7 +10,7 @@
         <nuxt/>
       </v-container>
     </v-content>
-    <v-navigation-drawer temporary :right="right" v-model="rightDrawer" fixed>
+    <!-- <v-navigation-drawer temporary :right="right" v-model="rightDrawer" fixed>
       <v-list>
         <v-list-tile @click.native="right = !right">
           <v-list-tile-action>
@@ -19,7 +19,7 @@
           <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
         </v-list-tile>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <v-footer  app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
 

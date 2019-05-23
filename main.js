@@ -17,7 +17,7 @@ if (config.dev) {
 	})
 }
 // Listen the server
-server.listen()
+server.listen(3000)
 const _NUXT_URL_ = `http://localhost:${server.address().port}`
 console.log(`Nuxt working on ${_NUXT_URL_}`)
 
@@ -53,6 +53,7 @@ const newWin = () => {
 		}
 		pollServer()
 	} else { return win.loadURL(_NUXT_URL_) }
+
 }
 app.on('ready', newWin)
 app.on('window-all-closed', () => app.quit())
