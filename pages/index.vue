@@ -30,7 +30,16 @@
     <Cover v-for="game in showGames" :key="game.name" :game="game" :height="height" :width="width" 
     />
   </v-layout>
-  <div v-else>loren</div>
+    <v-layout v-else column fill-height justify-center>
+      <v-layout row shrink justify-center>
+
+    <v-progress-circular
+    size="80"
+      indeterminate
+      color="primary"
+    ></v-progress-circular>
+      </v-layout>
+    </v-layout>
 </template>
 
 <script>
@@ -59,7 +68,7 @@ export default {
   watch: {},
   components: {
     Cover,
-    BottomSheet
+    BottomSheet,
   },
   mounted() {
     // this.fetch()
