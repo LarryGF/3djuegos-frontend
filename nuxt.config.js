@@ -43,6 +43,7 @@ module.exports = {
 	dev: process.env.NODE_ENV === 'DEV',
 	css: [
 		'@/assets/css/global.css',
-		'@/assets/css/material.css'
+		'@/assets/css/material.css',
+		'@/assets/css/font/css/materialdesignicons.css'
 	]
 }
