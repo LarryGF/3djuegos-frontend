@@ -16,3 +16,7 @@ dist
 
 # Mac OS
 .DS_Store
+
+static/db
+static/thumbnails
+static/images
