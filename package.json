@@ -1,8 +1,8 @@
 {
-  "name": "elecnuxt",
+  "name": "GamesCatalog",
   "version": "1.0.0",
   "description": "Nuxt + Electron",
-  "author": "hian <hiancdtrsnm@gmail.com>",
+  "author": "larrygf <larrywt609@gmail.com>",
   "private": true,
   "main": "main.js",
   "build": {
