@@ -21,15 +21,21 @@
               <v-spacer></v-spacer>
             <v-layout row shrink justify-center>
               <v-flex xs4>
+                <v-layout column justify-center fill-height>
 
-              ({{game.gamePlatform == 'Nintendo Switch'? 'Switch':game.gamePlatform}})
+             <template v-for="platform in game.gamePlatform" > ({{platform == 'Nintendo Switch'? 'Switch':platform}})<br></template>
+             
+              </v-layout>
               </v-flex>
-              <v-flex xs2>
-              <v-icon v-html="icon(game)">
+              <v-flex xs1>
+              <v-icon v-for="platform in game.gamePlatform" :key="platform" v-html="icon(platform)">
               </v-icon>
               </v-flex>
               <v-flex xs4>
-                {space slot}
+                <v-layout column justify-center fill-height>
+
+                {{game.details_pc?game.details_pc.min.size:''}}
+                </v-layout>
               </v-flex>
 
             </v-layout>
@@ -83,8 +89,8 @@ export default {
       this.activeGame = item
       this.dialog = true
     },
-    icon:function(item){
-      switch (item.gamePlatform){
+    icon:function(platform){
+      switch (platform){
         case 'XBOX':
         return 'mdi-xbox';
         case 'PC':

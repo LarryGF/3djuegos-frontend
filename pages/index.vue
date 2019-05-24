@@ -27,7 +27,7 @@
 
     <!-- </v-card> -->
     <!-- {{games[0]}} -->
-    <Cover v-for="game in showGames" :key="game.name" :game="game" :height="height" :width="width" 
+    <Cover v-for="game in showGames" :key="Math.random()" :game="game" :height="height" :width="width" 
     />
   </v-layout>
     <v-layout v-else column fill-height justify-center>
@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     getGames: async function() {
-      this.games = (await this.$axios.get("/db/db.json")).data;
+      this.games = (await this.$axios.get("/db/db_min.json")).data;
       for (this.count; this.count < 24; this.count++) {
         this.showGames.push(this.games[this.count]);
       }

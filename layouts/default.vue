@@ -38,7 +38,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'FileSync'
+      title: 'GamesCatalog'
     }
   }
 

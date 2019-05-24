@@ -38,18 +38,22 @@
                     <v-flex xs4>
                       <v-container>
                         <v-card class="text-xs-left">
-                          <blockquote class="blockquote">Fecha de publicación: {{game.datePublished}}</blockquote>
-                          <blockquote class="blockquote"><v-icon v-html="icon(game)">
-              </v-icon> Plataforma: {{game.gamePlatform}}</blockquote>
-                          <blockquote class="blockquote">Rating: {{game.aggregateRating?game.aggregateRating.ratingValue:'-'}}</blockquote>
-                          <blockquote class="blockquote">Desarrollador:</blockquote>
-                          <blockquote v-for="publisher in game.publisher"class="blockquote"><v-icon small class="mb-1">mdi-circle</v-icon> {{publisher}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Fecha de publicación: {{game.datePublished}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Plataformas:</blockquote>
+                          <blockquote class="blockquote font-weight-medium" v-for="platform in game.gamePlatform">
+                            <pre>   <v-icon v-html="icon(platform)">
+              </v-icon>{{platform}}</pre>
+                          </blockquote>
+                          <blockquote v-if="dialog" class="blockquote font-weight-medium">Rating: {{game.aggregateRating.ratingCount ?game.aggregateRating.ratingValue:'?'}}</blockquote>
+                          <!-- <blockquote v-if="dialog" class="blockquote font-weight-medium">Rating: {{game.aggregateRating.ratingValue }}</blockquote> -->
+                          <blockquote class="blockquote font-weight-medium">Desarrollador:</blockquote>
+                          <blockquote v-for="publisher in game.publisher" ><pre class="blockquote">   <v-icon small class="mb-1">mdi-circle</v-icon> {{publisher}}</pre></blockquote>
 
                         </v-card>
                       </v-container>
                       <v-container>
                         <v-card class="text-xs-left">
-                          <blockquote class="blockquote">Géneros:</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Géneros:</blockquote>
                           <blockquote class="blockquote" v-for="genre in game.genre"><v-icon>mdi-meteor</v-icon>{{genre}}</blockquote>
                         </v-card>
 
@@ -57,8 +61,33 @@
                     </v-flex>
                     <v-flex xs8>
                       <v-container>
-                        <v-card>
-                          <blockquote class="blockquote">{{game}}</blockquote>
+                        <v-card v-if="dialog && game.details_pc">
+                          <blockquote class="blockquote font-weight-medium text-xs-center">REQUERIMIENTOS</blockquote>
+                          <blockquote class="blockquote text-xs-left">
+                          <blockquote class="blockquote font-weight-medium text-xs-center">Mínimos</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Sistema Operativo: {{game.details_pc.min.os}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Microprocesador: {{game.details_pc.min.micro}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">RAM: </blockquote>
+                          <blockquote class="blockquote font-weight-medium">Tarjeta Gráfica: {{game.details_pc.min.tarjeta_grafica}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">DirectX: {{game.details_pc.min.directX}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Tamaño: {{game.details_pc.min.size}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium text-xs-center">Recomendados</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Sistema Operativo: {{game.details_pc.max.os}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Microprocesador: {{game.details_pc.max.micro}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">RAM: </blockquote>
+                          <blockquote class="blockquote font-weight-medium">Tarjeta Gráfica: {{game.details_pc.max.tarjeta_grafica}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">DirectX: {{game.details_pc.max.directX}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Tamaño: {{game.details_pc.max.size}}</blockquote>
+                          
+
+                            
+                            </blockquote>
+                        </v-card>
+                        <v-card v-else-if="dialog && game.gamePlatform == 'PC'">
+                          <blockquote class="blockquote font-weight-medium">No contamos con los requisitos para este juego.</blockquote>                          
+                        </v-card>
+                        <v-card v-else>
+                          <blockquote class="blockquote font-weight-medium">Los juegos de consola no tienen requerimientos.</blockquote>                          
                         </v-card>
                       </v-container>
                     </v-flex>
@@ -91,9 +120,8 @@ export default {
     handleKeys: function(event) {
       console.log(event);
     },
-    icon:function(item){
-      console.log(item)
-      switch (item.gamePlatform){
+    icon:function(platform){
+      switch (platform){
         case 'XBOX':
         return 'mdi-xbox';
         case 'PC':

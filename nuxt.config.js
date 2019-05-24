@@ -2,7 +2,7 @@ module.exports = {
 	modules: [ '@nuxtjs/axios', '@nuxtjs/vuetify'],
 	mode: 'spa',
 	head: {
-		title: 'FileSync',
+		title: 'GamesCatalog',
 		meta: [{
 			charset: 'utf-8'
 		  },
