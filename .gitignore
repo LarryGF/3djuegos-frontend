@@ -20,3 +20,5 @@ dist
 static/db
 static/thumbnails
 static/images
+
+assets/
