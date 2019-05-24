@@ -9,6 +9,7 @@
         :max-height="0.3*height"
         :max-width="0.2*width"
         lazy-src="images/dissidia-012-prologus.jpg"
+        gradient="transparent,transparent,black"
       >
         <v-expand-transition>
           <div
@@ -16,19 +17,27 @@
             class="d-flex transition-fast-in-fast-out  v-card--reveal  white--text"
             style="height: 100%; background-color:rgba(0,0,0,0.7)"
           >
-            <v-layout column  justify-center text-xs-center>
+            <v-layout column  justify-end text-xs-center>
+              <v-spacer></v-spacer>
             <v-layout row shrink justify-center>
               <v-flex xs4>
 
-              ({{game.gamePlatform}})
+              ({{game.gamePlatform == 'Nintendo Switch'? 'Switch':game.gamePlatform}})
               </v-flex>
               <v-flex xs2>
               <v-icon v-html="icon(game)">
               </v-icon>
               </v-flex>
-              <v-flex xs8>
+              <v-flex xs4>
+                {space slot}
+              </v-flex>
 
-              {{game.name}}
+            </v-layout>
+              <v-spacer></v-spacer>
+
+            <v-layout row shrink justify-center>
+              <v-flex xs4>
+                <v-btn class="mb-5"color="primary" @click.stop="openDialog(game)" round>Detalles</v-btn>
               </v-flex>
 
             </v-layout>
@@ -38,7 +47,7 @@
         <v-layout column fill-height justify-end>
           <v-spacer></v-spacer>
           <v-layout row shrink>
-            <!-- <span class="ml-2 mt-3">{{game.name}}</span> -->
+            <span class="ml-2 mt-3">{{game.name}}</span>
             <v-spacer></v-spacer>
             <v-avatar style="position:relative" color="rgba(70,70,70,0.8)" >
               <span>{{game.aggregateRating.ratingValue== "\u00a0" ? '-': game.aggregateRating.ratingValue  }}</span>
@@ -47,18 +56,33 @@
         </v-layout>
       </v-img>
       </v-hover>
+      <Dialog :dialog="dialog" :game="activeGame?activeGame:{}" @close="dialog=false" />
     </v-layout>
   </v-flex>
 </template>
 
 <script>
+import Dialog from "../components/Dialog"
 export default {
   props: {
     game: Object,
     height: Number,
-    width: Number
+    width: Number,
+  },
+  data(){
+    return{
+      dialog:false,
+      activeGame:null,
+    }
+  },
+  components:{
+    Dialog
   },
   methods:{
+    openDialog: function(item){
+      this.activeGame = item
+      this.dialog = true
+    },
     icon:function(item){
       switch (item.gamePlatform){
         case 'XBOX':
