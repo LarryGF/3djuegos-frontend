@@ -2,7 +2,7 @@
   <v-flex xs3>
     <v-layout column my-2 px-2 fill-height>
       <v-hover>
-
+        
       <v-img
         slot-scope="{ hover }"
         :src="game.image"
