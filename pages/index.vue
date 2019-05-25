@@ -14,7 +14,14 @@
 <script>
 export default {
     created(){
-        this.$store.dispatch('fetchGames')
+        if (!this.$store.state.games){
+
+            this.$store.dispatch('fetchGames')
+        }
+        if (!this.$store.state.filters){
+            this.$store.dispatch('fetchFilters')
+
+        }
     }
 }
 </script>

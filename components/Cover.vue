@@ -8,8 +8,8 @@
         :src="game.image"
         :max-height="0.3*height"
         :max-width="0.2*width"
-        lazy-src="images/dissidia-012-prologus.jpg"
         gradient="transparent,transparent,black"
+        alt="Loren"
       >
         <v-expand-transition>
           <div
