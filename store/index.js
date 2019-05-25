@@ -56,17 +56,26 @@ export const actions = {
   async fetchGames({
     commit
   }) {
-    var result = (await this.$axios.get("/db/db.json")).data
-    commit('setGames', result)
+    this.$axios.get("/db/db.json").then(
+      (response) => {
+        let result = response.data
+        commit('setGames', result)
+      }
+    )
   },
   async fetchFilters({ commit }) {
-    var result = (await this.$axios.get("/db/filters.json")).data
-    commit('setFilters',result)
+    this.$axios.get("/db/filters.json").then(
+      (response) => {
+        let result = response.data
+        commit('setFilters',result)
+      }
+    )
     
   },
   callSetLimits({
     commit
   }, fromTo) {
     commit('setLimits', fromTo)
+    return true
   }
 }
