@@ -1,6 +1,6 @@
 
 <template>
-  <v-layout row wrap v-if="showGames&&type">
+  <v-layout row wrap v-if="showGames&&type" v-resize="onResize">
     <v-btn fab absolute right large @click="change" fixed>
       <v-icon light v-html="type?'mdi-timeline-text':'mdi-timeline-text-outline'"></v-icon>
     </v-btn>
@@ -43,7 +43,7 @@ export default {
       backedGames: [],
       count: 0,
       lower: 0,
-      upper: 24,
+      upper: 200,
       savedPositionCover:0,
       savedPositionTime:0,
       changing:false
@@ -77,12 +77,15 @@ export default {
   },
   mounted() {
     // this.fetch()
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
+   this.onResize()
     this.scroll();
     // this.getFilters()
   },
   methods: {
+    onResize: function (){
+       this.height = window.innerHeight;
+    this.width = window.innerWidth;
+    },
     change: function(){
       this.changing = true
       if (this.type){
@@ -98,32 +101,7 @@ export default {
     setTimeout(()=>{this.changing = false},1000)
      
     },
-    // getGames: async function() {
-    //   // this.games = (await this.$axios.get("/db/db_min.json")).data;
-    //   for (this.count; this.count < 96; this.count++) {
-    //     this.showGames.push(this.games[this.count]);
-    //   }
-
-    //   // console.log(this.$router)
-    // },
-    // getFilters: async function() {
-    //   this.publishers = (await this.$axios.get("/db/publishers.json")).data;
-    //   this.publishers = this.publishers.map(element =>
-    //     Object({ name: element, selected: true })
-    //   );
-    //   this.platforms = (await this.$axios.get("/db/platforms.json")).data;
-    //   this.platforms = this.platforms.map(element =>
-    //     Object({ name: element, selected: true })
-    //   );
-    //   this.os = (await this.$axios.get("/db/os.json")).data;
-    //   this.os = this.os.map(element =>
-    //     Object({ name: element, selected: true })
-    //   );
-    //   this.genres = (await this.$axios.get("/db/genres.json")).data;
-    //   this.genres = this.genres.map(element =>
-    //     Object({ name: element, selected: true })
-    //   );
-    // },
+   
     scroll: function() {
       window.onscroll = () => {
         let bottomOfWindow =
@@ -135,7 +113,7 @@ export default {
           //   this.count++;
           //   this.showGames.push(this.games[this.count]);
           // }
-          this.upper = this.upper + 24;
+          this.upper = this.upper + 100;
           this.$store.dispatch("callSetLimits", {
             from: this.lower,
             to: this.upper

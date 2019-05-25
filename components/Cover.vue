@@ -59,6 +59,15 @@
             </v-avatar>
           </v-layout>
         </v-layout>
+        <v-layout
+                    slot="placeholder"
+                    fill-height
+                    align-center
+                    justify-center
+                    ma-0
+                  >
+                    <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                  </v-layout>
       </v-img>
       </v-hover>
       <Dialog :dialog="dialog" :game="activeGame?activeGame:{}" @close="dialog=false" />

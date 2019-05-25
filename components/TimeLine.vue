@@ -8,7 +8,7 @@
         <v-card class="elevation-2" @click="openDialog(game)">
           <v-card-title class="headline"><v-icon v-for="platform in game.gamePlatform" :key="platform" v-html="icon(platform)">
               </v-icon> {{game.name}}</v-card-title>
-          <v-card-text>{{game.description}}</v-card-text>
+          <v-card-text>{{game.description.length >500?game.description.slice(0,500)+'...':game.description}}</v-card-text>
         </v-card>
       </v-timeline-item>
       <Dialog :dialog="dialog" :game="activeGame?activeGame:{}" @close="dialog=false" />

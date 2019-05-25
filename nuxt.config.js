@@ -24,7 +24,11 @@ module.exports = {
 		 
 		  ],
 }, // Headers of the page
-	loading: true, // Disable default loading bar
+	loading: {color:'blue',height:'6px'}, // Disable default loading bar
+	loadingIndicator: {
+		name: 'folding-cube',
+		color: 'rgba(125,125,125,1)',
+	background:'rgba(0,0,0,0)'},
 	build: {
 		extend (config, { isDev, isClient }) {
 			if (isDev && isClient) {
