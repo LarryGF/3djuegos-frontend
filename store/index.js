@@ -67,6 +67,10 @@ export const actions = {
     this.$axios.get("/db/filters.json").then(
       (response) => {
         let result = response.data
+        for (var filter in result) {
+          result[filter] = result[filter].map(element =>
+                Object({ name: element, selected: true }))
+        }
         commit('setFilters',result)
       }
     )

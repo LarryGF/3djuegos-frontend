@@ -1,68 +1,59 @@
 
 <template>
-  <v-layout row wrap v-if="showGames">
+  <v-layout row wrap v-if="showGames&&type">
+    <v-btn fab absolute right large @click="change" fixed>
+      <v-icon light v-html="type?'mdi-timeline-text':'mdi-timeline-text-outline'"></v-icon>
+    </v-btn>
     <!-- <v-card flat> -->
-    <v-toolbar light app color="rgba(255,255,255,0.9)">
-      <v-flex xs4>
-        <v-text-field
-          label="Filtra"
-          v-model="value"
-          @keyup.enter.native.stop="filter"
-          append-icon="cancel"
-          @click:append="restore"
-          outline
-          class="mt-2"
-        ></v-text-field>
-      </v-flex>
-      <nuxt-link to="/">home</nuxt-link>
-      <v-spacer></v-spacer>
-      <template v-if="filters">
-
-      <BottomSheet :label="'Géneros'" :color="'purple'" :items="filters.genres"/>
-      <BottomSheet :label="'Sistema Operativo'" :color="'blue'" :items="filters.os"/>
-      <BottomSheet :label="'Plataformas'" :color="'primary'" :items="filters.platforms"/>
-      <!-- <BottomSheet :label="'Desarrollador'" :color="'cyan'" :items="filters.publishers"/> -->
-      </template>
-    </v-toolbar>
+    <ToolBar :filters="filters"/>
 
     <!-- </v-card> -->
     <!-- {{games[0]}} -->
     <Cover v-for="game in showGames" :key="game.name" :game="game" :height="height" :width="width"/>
   </v-layout>
+  <v-layout v-else-if="showGames&&!type">
+    <v-btn fab absolute right large @click="change" fixed>
+      <v-icon light v-html="type?'mdi-timeline-text':'mdi-timeline-text-outline'"></v-icon>
+    </v-btn>
+    <ToolBar :filters="filters"/>
+    <TimeLine :showGames="showGames"/>
+  </v-layout>
+
   <v-layout v-else column fill-height justify-center>
     <v-layout row shrink justify-center>
-      <template v-if="$store.state.games"></template>
-      <template v-else></template>
-
       <v-progress-circular size="80" indeterminate color="primary"></v-progress-circular>
     </v-layout>
   </v-layout>
 </template>
 
 <script>
+import goTo from 'vuetify/lib/components/Vuetify/goTo'
+import TimeLine from "../components/TimeLine";
 import Cover from "../components/Cover";
 import BottomSheet from "../components/BottomSheet";
+import ToolBar from "../components/ToolBar";
+import { setTimeout } from 'timers';
 export default {
   data() {
     return {
-      value: "",
+      type: true,
+      // value: "",
       height: 0,
       width: 0,
       backedGames: [],
       count: 0,
       lower: 0,
       upper: 24,
-      
+      savedPositionCover:0,
+      savedPositionTime:0,
+      changing:false
     };
   },
   computed: {
-    gamesAvailable() {
-      return this.$store.getters.gamesAvailable;
-    },
     showGames() {
       return this.$store.getters.getGamesToShow;
     },
-    filters(){
+    filters() {
       return this.$store.getters.getFilters;
     }
   },
@@ -70,15 +61,17 @@ export default {
   watch: {},
   components: {
     Cover,
-    BottomSheet
+    BottomSheet,
+    ToolBar,
+    TimeLine
   },
   created() {
     console.log("created");
-    if (!this.games) {
+    if (!this.$store.getters.gamesAvailable) {
       this.$store.dispatch("fetchGames");
     }
-    if (!this.$store.state.filters){
-      this.$store.dispatch('fetchFilters')
+    if (!this.$store.state.filters) {
+      this.$store.dispatch("fetchFilters");
     }
     this.$store.dispatch("callSetLimits", { from: this.lower, to: this.upper });
   },
@@ -90,6 +83,21 @@ export default {
     // this.getFilters()
   },
   methods: {
+    change: function(){
+      this.changing = true
+      if (this.type){
+        this.savedPositionCover = window.pageYOffset
+        this.type = !this.type
+        this.$vuetify.goTo(this.savedPositionTime)
+
+      } else{
+        this.savedPositionTime = window.pageYOffset
+        this.type = !this.type
+        this.$vuetify.goTo(this.savedPositionCover)
+      }
+    setTimeout(()=>{this.changing = false},1000)
+     
+    },
     // getGames: async function() {
     //   // this.games = (await this.$axios.get("/db/db_min.json")).data;
     //   for (this.count; this.count < 96; this.count++) {
@@ -122,7 +130,7 @@ export default {
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
 
-        if (bottomOfWindow && this.backedGames.length === 0) {
+        if (bottomOfWindow && this.backedGames.length === 0 && !this.changing) {
           // for (var i = 0; i < 48; i++) {
           //   this.count++;
           //   this.showGames.push(this.games[this.count]);

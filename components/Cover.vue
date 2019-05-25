@@ -9,7 +9,6 @@
         :max-height="0.3*height"
         :max-width="0.2*width"
         gradient="transparent,transparent,black"
-        alt="Loren"
       >
         <v-expand-transition>
           <div

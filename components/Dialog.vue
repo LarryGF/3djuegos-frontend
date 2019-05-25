@@ -65,19 +65,19 @@
                           <blockquote class="blockquote font-weight-medium text-xs-center">REQUERIMIENTOS</blockquote>
                           <blockquote class="blockquote text-xs-left">
                           <blockquote class="blockquote font-weight-medium text-xs-center">Mínimos</blockquote>
-                          <blockquote class="blockquote font-weight-medium">Sistema Operativo: {{game.details_pc.min.os}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">Microprocesador: {{game.details_pc.min.micro}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">RAM: </blockquote>
-                          <blockquote class="blockquote font-weight-medium">Tarjeta Gráfica: {{game.details_pc.min.tarjeta_grafica}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">DirectX: {{game.details_pc.min.directX}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">Tamaño: {{game.details_pc.min.size}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Sistema Operativo: {{game.details_pc.min.os}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Microprocesador: {{game.details_pc.min.micro}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">RAM: {{game.details_pc.min.ram}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Tarjeta Gráfica: {{game.details_pc.min.tarjeta_grafica}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">DirectX: {{game.details_pc.min.directX}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Tamaño: {{game.details_pc.min.size}}</blockquote>
                           <blockquote class="blockquote font-weight-medium text-xs-center">Recomendados</blockquote>
-                          <blockquote class="blockquote font-weight-medium">Sistema Operativo: {{game.details_pc.max.os}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">Microprocesador: {{game.details_pc.max.micro}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">RAM: </blockquote>
-                          <blockquote class="blockquote font-weight-medium">Tarjeta Gráfica: {{game.details_pc.max.tarjeta_grafica}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">DirectX: {{game.details_pc.max.directX}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">Tamaño: {{game.details_pc.max.size}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Sistema Operativo: {{game.details_pc.max.os}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Microprocesador: {{game.details_pc.max.micro}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">RAM: {{game.details_pc.max.ram}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Tarjeta Gráfica: {{game.details_pc.max.tarjeta_grafica}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">DirectX: {{game.details_pc.max.directX}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Tamaño: {{game.details_pc.max.size}}</blockquote>
                           
 
                             
