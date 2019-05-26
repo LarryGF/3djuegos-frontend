@@ -31,20 +31,26 @@ export const getters = {
   getGamesToShow(state) {
     if (state.games) {
       // DEBUG: Puse que el filtro tenía que tener más de 4 elementos
-      if (state.text_filter.lenght > 4) {
+      if (state.text_filter) {
         return state.games.filter(game =>
           game.name.toLowerCase().includes(state.text_filter.toLowerCase())
         )
       } else {
-        console.log(state.filters)
-        console.log(state.games.slice(0,1))
         return state.games.slice(state.lower, state.upper).filter(game => {
           for (var genre_index in game.genre) {
             if (!state.filters.genres[game.genre[genre_index]]) {
               return false
             } 
           } return true
-        })
+        }).filter(game => {
+          for (var platform_index in game.gamePlatform) {
+            if (!state.filters.platforms[game.gamePlatform[platform_index]]) {
+              return false
+            } 
+          } return true
+        }).filter(game => 
+          state.filters.os[game.operatingSystem]
+        )
       }
     } else {
       return null

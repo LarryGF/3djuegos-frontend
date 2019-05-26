@@ -50,13 +50,18 @@
           </div>
         </v-expand-transition>
         <v-layout column fill-height justify-end>
-          <v-spacer></v-spacer>
+          <!-- <v-spacer></v-spacer> -->
           <v-layout row shrink>
-            <span class="ml-2 mt-3">{{game.name}} </span>
-            <v-spacer></v-spacer>
-            <v-avatar style="position:relative" color="rgba(70,70,70,0.8)" >
+            <v-flex xs10 class="pt-2" >
+
+            <span class="ml-2">{{game.name}} </span>
+            </v-flex>
+            <v-flex xs2>
+
+            <v-avatar  color="rgba(70,70,70,0.8)" >
               <span>{{game.aggregateRating.ratingValue== "\u00a0" ? '-': game.aggregateRating.ratingValue  }}</span>
             </v-avatar>
+            </v-flex>
           </v-layout>
         </v-layout>
         <v-layout
