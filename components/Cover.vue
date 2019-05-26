@@ -42,7 +42,7 @@
 
             <v-layout row shrink justify-center>
               <v-flex xs4>
-                <v-btn class="mb-5"color="primary" @click.stop="openDialog(game)" round>Detalles</v-btn>
+                <v-btn class="mb-5"color="primary" @click.stop="$emit('dialog',index)" round>Detalles</v-btn>
               </v-flex>
 
             </v-layout>
@@ -52,7 +52,7 @@
         <v-layout column fill-height justify-end>
           <v-spacer></v-spacer>
           <v-layout row shrink>
-            <span class="ml-2 mt-3">{{game.name}}</span>
+            <span class="ml-2 mt-3">{{game.name}} </span>
             <v-spacer></v-spacer>
             <v-avatar style="position:relative" color="rgba(70,70,70,0.8)" >
               <span>{{game.aggregateRating.ratingValue== "\u00a0" ? '-': game.aggregateRating.ratingValue  }}</span>
@@ -70,7 +70,6 @@
                   </v-layout>
       </v-img>
       </v-hover>
-      <Dialog :dialog="dialog" :game="activeGame?activeGame:{}" @close="dialog=false" />
     </v-layout>
   </v-flex>
 </template>
@@ -82,6 +81,7 @@ export default {
     game: Object,
     height: Number,
     width: Number,
+    index: Number
   },
   data(){
     return{
@@ -90,13 +90,9 @@ export default {
     }
   },
   components:{
-    Dialog
   },
   methods:{
-    openDialog: function(item){
-      this.activeGame = item
-      this.dialog = true
-    },
+    
     icon:function(platform){
       switch (platform){
         case 'XBOX':

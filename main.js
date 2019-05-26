@@ -65,82 +65,82 @@ app.on('activate', () => win === null && newWin())
  * py process
  *************************************************************/
 
-const PY_DIST_FOLDER = 'pycalcdist'
-const PY_FOLDER = 'pycalc'
-const PY_MODULE = 'api' // without .py suffix
+// const PY_DIST_FOLDER = 'pycalcdist'
+// const PY_FOLDER = 'pycalc'
+// const PY_MODULE = 'api' // without .py suffix
 
-let pyProc = null
-let pyPort = null
+// let pyProc = null
+// let pyPort = null
 
-const guessPackaged = () => {
-	const fullPath = path.join(__dirname, PY_DIST_FOLDER)
-	return require('fs').existsSync(fullPath)
-}
-
-const getScriptPath = () => {
-	if (!guessPackaged()) {
-		return path.join(__dirname, PY_FOLDER, PY_MODULE + '.py')
-	}
-	if (process.platform === 'win32') {
-		return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE + '.exe')
-	}
-	return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE)
-}
-
-const selectPort = () => {
-	pyPort = 4242
-	return pyPort
-}
-
-// const createPyProc = () => {
-//   let script = getScriptPath()
-//   let port = '' + selectPort()
-
-//   if (guessPackaged()) {
-//     pyProc = require('child_process').execFile(script, [port])
-//   } else {
-//     pyProc = require('child_process').spawn('python', [script, port])
-//   }
-
-//   if (pyProc != null) {
-//     //console.log(pyProc)
-//     console.log('child process success on port ' + port)
-//   }
+// const guessPackaged = () => {
+// 	const fullPath = path.join(__dirname, PY_DIST_FOLDER)
+// 	return require('fs').existsSync(fullPath)
 // }
 
-const createPyExample = () => {
-	let home = path.join(__dirname, '..', 'pyenv')
-	let boot = path.join(__dirname, '..', 'boot.sh')
-	let python_path = path.join(home, 'bin', 'python')
+// const getScriptPath = () => {
+// 	if (!guessPackaged()) {
+// 		return path.join(__dirname, PY_FOLDER, PY_MODULE + '.py')
+// 	}
+// 	if (process.platform === 'win32') {
+// 		return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE + '.exe')
+// 	}
+// 	return path.join(__dirname, PY_DIST_FOLDER, PY_MODULE, PY_MODULE)
+// }
 
-	if (process.platform === 'win32') {
-		boot = path.join(__dirname, '..', 'boot.bat')
-		python_path += '.exe'
+// const selectPort = () => {
+// 	pyPort = 4242
+// 	return pyPort
+// }
 
-	}
-	process.env.PYTHONHOME = home
-	let uvicorn = path.join(home, 'bin', 'uvicorn')
-	let port = '' + selectPort()
+// // const createPyProc = () => {
+// //   let script = getScriptPath()
+// //   let port = '' + selectPort()
 
-	console.log(home)
-	console.log(python_path)
-	console.log(uvicorn)
+// //   if (guessPackaged()) {
+// //     pyProc = require('child_process').execFile(script, [port])
+// //   } else {
+// //     pyProc = require('child_process').spawn('python', [script, port])
+// //   }
 
-	pyProc = require('child_process').spawn(boot, [], {detached: true})
+// //   if (pyProc != null) {
+// //     //console.log(pyProc)
+// //     console.log('child process success on port ' + port)
+// //   }
+// // }
 
-	if (pyProc != null) {
-		// console.log(pyProc)
-		console.log('child process success on port ' + boot)
-	}
-}
+// const createPyExample = () => {
+// 	let home = path.join(__dirname, '..', 'pyenv')
+// 	let boot = path.join(__dirname, '..', 'boot.sh')
+// 	let python_path = path.join(home, 'bin', 'python')
 
-const exitPyProc = () => {
-	// pyProc.kill()
-	process.kill(-pyProc.pid)
-	pyProc = null
-	pyPort = null
-}
-if (!config.dev) {
-	app.on('ready', createPyExample)
-	app.on('will-quit', exitPyProc)
-}
+// 	if (process.platform === 'win32') {
+// 		boot = path.join(__dirname, '..', 'boot.bat')
+// 		python_path += '.exe'
+
+// 	}
+// 	process.env.PYTHONHOME = home
+// 	let uvicorn = path.join(home, 'bin', 'uvicorn')
+// 	let port = '' + selectPort()
+
+// 	console.log(home)
+// 	console.log(python_path)
+// 	console.log(uvicorn)
+
+// 	pyProc = require('child_process').spawn(boot, [], {detached: true})
+
+// 	if (pyProc != null) {
+// 		// console.log(pyProc)
+// 		console.log('child process success on port ' + boot)
+// 	}
+// }
+
+// const exitPyProc = () => {
+// 	// pyProc.kill()
+// 	process.kill(-pyProc.pid)
+// 	pyProc = null
+// 	pyPort = null
+// }
+// if (!config.dev) {
+// 	app.on('ready', createPyExample)
+// 	app.on('will-quit', exitPyProc)
+// }

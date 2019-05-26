@@ -24,7 +24,7 @@ module.exports = {
 		 
 		  ],
 }, // Headers of the page
-	loading: {color:'blue',height:'6px'}, // Disable default loading bar
+	loading: {color:'primary',height:'5px'}, // Disable default loading bar
 	loadingIndicator: {
 		name: 'folding-cube',
 		color: 'rgba(125,125,125,1)',

@@ -1,25 +1,14 @@
 
 <template>
-  <v-layout row wrap v-if="showGames&&type" v-resize="onResize">
+  
+  <v-layout v-if="showGames">
     
-    <!-- <v-card flat> -->
-    <ToolBar :filters="filters"/>
-
-    <!-- </v-card> -->
-    <!-- {{games[0]}} -->
-    <Cover v-for="(game,index) in showGames" :key="game.name" :game="game" :height="height" :index="index" :width="width" @dialog="openDialog"/>
-      <Dialog :dialog="dialog" :game="activeGame?activeGame:{}" @close="dialog=false" />
-  </v-layout>
-  <!-- <v-layout v-else-if="showGames&&!type">
-    <v-btn fab absolute right large @click="change" fixed>
-      <v-icon light v-html="type?'mdi-timeline-text':'mdi-timeline-text-outline'"></v-icon>
-    </v-btn>
     <ToolBar :filters="filters"/>
     <TimeLine :showGames="showGames" @dialog="openDialog"/>
       <Dialog :dialog="dialog" :game="activeGame?activeGame:{}" @close="dialog=false" />
    
 
-  </v-layout> -->
+  </v-layout>
 
   <v-layout v-else column fill-height justify-center>
     <v-layout row shrink justify-center>
@@ -31,7 +20,6 @@
 <script>
 import goTo from 'vuetify/lib/components/Vuetify/goTo'
 import TimeLine from "../components/TimeLine";
-import Cover from "../components/Cover";
 import BottomSheet from "../components/BottomSheet";
 import ToolBar from "../components/ToolBar";
 import { setTimeout } from 'timers';
@@ -46,7 +34,7 @@ export default {
       backedGames: [],
       count: 0,
       lower: 0,
-      upper: 200,
+      upper: 100,
       savedPositionCover:0,
       savedPositionTime:0,
       changing:false,
@@ -65,20 +53,24 @@ export default {
 
   watch: {},
   components: {
-    Cover,
     BottomSheet,
     ToolBar,
     TimeLine,
     Dialog
   },
   created() {
-    console.log("created");
+      console.log('created')
     if (!this.$store.getters.gamesAvailable) {
+        console.log('no games available')
       this.$store.dispatch("fetchGames");
     }
     if (!this.$store.state.filters) {
+        console.log('no filters available')
+
       this.$store.dispatch("fetchFilters");
     }
+        console.log('setting limits')
+
     this.$store.dispatch("callSetLimits", { from: this.lower, to: this.upper });
   },
   mounted() {
@@ -124,7 +116,7 @@ export default {
           //   this.count++;
           //   this.showGames.push(this.games[this.count]);
           // }
-          this.upper = this.upper + 100;
+          this.upper = this.upper + 50;
           this.$store.dispatch("callSetLimits", {
             from: this.lower,
             to: this.upper
@@ -132,31 +124,31 @@ export default {
         }
       };
     },
-    // filter: function() {
-    //   console.log("filtering");
-    //   if (this.value !== "") {
-    //     this.backedGames = this.backedGames.concat(this.showGames);
-    //     this.showGames = [];
-    //     this.showGames = this.showGames.concat(
-    //       this.games.filter(game =>
-    //         game.name.toLowerCase().includes(this.value.toLowerCase())
-    //       )
-    //     );
-    //     this.$forceUpdate();
-    //     console.log(this.showGames);
-    //   }
-    // },
-    // restore: function() {
-    //   this.showGames = this.backedGames;
-    //   this.backedGames = [];
-    //   this.$forceUpdate();
-    //   this.value = "";
-    // },
-    // hover: function() {
-    //   this.$forceUpdate();
+    filter: function() {
+      console.log("filtering");
+      if (this.value !== "") {
+        this.backedGames = this.backedGames.concat(this.showGames);
+        this.showGames = [];
+        this.showGames = this.showGames.concat(
+          this.games.filter(game =>
+            game.name.toLowerCase().includes(this.value.toLowerCase())
+          )
+        );
+        this.$forceUpdate();
+        console.log(this.showGames);
+      }
+    },
+    restore: function() {
+      this.showGames = this.backedGames;
+      this.backedGames = [];
+      this.$forceUpdate();
+      this.value = "";
+    },
+    hover: function() {
+      this.$forceUpdate();
 
-    //   console.log("hover");
-    // }
+      console.log("hover");
+    }
   }
 };
 </script>

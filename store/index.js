@@ -2,7 +2,8 @@ export const state = () => ({
   games: null,
   filters:null,
   lower: 0,
-  upper: 1
+  upper: 1,
+  text_filter:''
 })
 
 export const mutations = {
@@ -15,15 +16,29 @@ export const mutations = {
   setLimits(state, fromTo) {
     state.lower = fromTo.from
     state.upper = fromTo.to
-  }
+  },
+  setTextFilter(state, value) {
+    state.text_filter = value
+  },
+  setSpecificFilter(state,values) {
+    state.filters.platform = value
+  },
+  
 
 }
 
 export const getters = {
   getGamesToShow(state) {
     if (state.games) {
-
-      return state.games.slice(state.lower, state.upper)
+      // DEBUG: Puse que el filtro tenía que tener más de 4 elementos
+      if (state.text_filter.lenght > 4) {
+        return state.games.filter(game =>
+          game.name.toLowerCase().includes(state.text_filter.toLowerCase())
+        )
+      } else {
+        
+        return state.games.slice(state.lower, state.upper)
+      }
     } else {
       return null
     }
@@ -50,6 +65,14 @@ export const getters = {
     } else {
       return false
     }
+  },
+  getTextFilter(state) {
+    if (state.text_filter) {
+      
+      return state.text_filter
+    } else {
+      return ''
+    }
   }
 }
 export const actions = {
@@ -67,11 +90,13 @@ export const actions = {
     this.$axios.get("/db/filters.json").then(
       (response) => {
         let result = response.data
+        var dictio = {}
         for (var filter in result) {
-          result[filter] = result[filter].map(element =>
-                Object({ name: element, selected: true }))
+          dictio[filter]={}
+          result[filter].map(element =>
+                dictio[filter][element] = true)
         }
-        commit('setFilters',result)
+        commit('setFilters',dictio)
       }
     )
     
@@ -80,6 +105,14 @@ export const actions = {
     commit
   }, fromTo) {
     commit('setLimits', fromTo)
-    return true
-  }
+  },
+  callSetTextFilter({ commit }, value) {
+  
+    commit('setTextFilter',value)
+  },
+  callSetFilters({commit},values){
+    commit('setSpecificFilter',values)
+  },
+  
+  
 }

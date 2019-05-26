@@ -1,22 +1,22 @@
 <template>
     <v-timeline>
-      <v-timeline-item v-for="game in showGames" :key="game.name" color="red lighten-2" >
+      <v-timeline-item v-for="(game,index) in showGames" :key="game.name" color="red lighten-2" >
           <v-avatar slot="icon" small>
               <span>{{game.aggregateRating.ratingValue== "\u00a0" ? '-': game.aggregateRating.ratingValue  }}</span>
       </v-avatar>
         <span slot="opposite">{{game.datePublished}}</span>
-        <v-card class="elevation-2" @click="openDialog(game)">
+        <v-card class="elevation-2" @click="$emit('dialog',index)">
           <v-card-title class="headline"><v-icon v-for="platform in game.gamePlatform" :key="platform" v-html="icon(platform)">
               </v-icon> {{game.name}}</v-card-title>
           <v-card-text>{{game.description.length >500?game.description.slice(0,500)+'...':game.description}}</v-card-text>
         </v-card>
       </v-timeline-item>
-      <Dialog :dialog="dialog" :game="activeGame?activeGame:{}" @close="dialog=false" />
+      <!-- <Dialog :dialog="dialog" :game="activeGame?activeGame:{}" @close="dialog=false" /> -->
 
     </v-timeline>
 </template>
 <script>
-import Dialog from "../components/Dialog"
+// import Dialog from "../components/Dialog"
 
 export default {
     props:{
@@ -29,7 +29,7 @@ export default {
         }
     },
     components:{
-        Dialog
+        // Dialog
     },
     methods:{
         openDialog: function(item){

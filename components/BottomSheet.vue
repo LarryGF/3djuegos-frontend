@@ -1,19 +1,20 @@
 <template>
-  <v-bottom-sheet inset>
+  <v-bottom-sheet inset lazy>
     <v-btn slot="activator" :color="color" dark round>{{label}}</v-btn>
     <v-layout row wrap justify-space-between>
       <v-card tile color="rgba(0,0,0,0.5">
+        {{values}}
         <v-chip
-          :light="item.selected"
-          v-for="item in items"
+          :light="item"
+          v-for="(item,key) in values"
           :key="Math.random()"
-          :selected="item.selected"
-          @click="select(item)"
+          :selected="item"
+          @click="select(key,item)"
         >
           <v-avatar>
-            <v-icon :color="item.selected?'red':'green'">{{item.selected?'cancel':'check_circle'}}</v-icon>
+            <v-icon :color="item?'red':'green'">{{item?'cancel':'check_circle'}}</v-icon>
           </v-avatar>
-          {{item.name}}
+          {{key}}
         </v-chip>
       </v-card>
     </v-layout>
@@ -25,7 +26,7 @@ export default {
   props: {
     label: String,
     color: String,
-    items: Array
+    items: String
   },
   data() {
     return {
@@ -33,19 +34,25 @@ export default {
     };
   },
   methods: {
-    select: function(item) {
-      console.log("item");
-      item.selected = !item.selected;
-      if (item.selected && this.selected.indexOf(item) === -1) {
-        this.selected.push(item);
-      } else if (!item.selected && this.selected.indexOf(item) !== -1) {
-        this.selected.splice(this.selected.indexOf(item), 1);
-      }
+    select: function(key,item) {
+      
+      // this.selected[this.selected.indexOf(item)].selected = !this.selected[indexOf(item)].selected
+      // item.selected = !item.selected;
+      // if (item.selected && this.selected.indexOf(item) === -1) {
+      //   this.selected.push(item);
+      // } else if (!item.selected && this.selected.indexOf(item) !== -1) {
+      //   this.selected.splice(this.selected.indexOf(item), 1);
+      // }
     }
   },
   watch: {},
   mounted() {
-    this.selected = this.items.map(item => (item.selected ? item : null));
+    // this.selected = this.values.map(item => item);
+  },
+  computed:{
+    values(){
+      return this.$store.getters.getFilters[this.items]
+    }
   }
 };
 </script>

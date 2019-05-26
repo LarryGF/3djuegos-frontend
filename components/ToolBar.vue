@@ -1,26 +1,37 @@
 <template>
-    <v-toolbar light app color="rgba(255,255,255,0.9)">
-      <v-btn to="/" icon> <v-icon>mdi-home-outline</v-icon></v-btn>
-      <v-spacer></v-spacer>
+    <v-toolbar light app color="rgba(0,0,0,0.4)" height="60%">
       <v-flex xs4>
+
+      <v-btn dark to="/" icon class="mx-2"> <v-icon large>mdi-home-outline</v-icon></v-btn>
+      <v-btn dark to="/catalog" icon class="mx-2"> <v-icon large>mdi-xbox-controller</v-icon></v-btn>
+      <v-btn dark to="/timeView" icon class="mx-2"  > <v-icon large>mdi-timeline-text</v-icon></v-btn>
+      </v-flex>
+      
+      <v-flex xs4>
+        <v-flex xs6>
+
+        
         <v-text-field
-          label="Filtra"
+        dark
+          label="Filtrar por nombre"
           v-model="value"
-          @keyup.enter.native.stop="$emit('filter',value)"
+          @keyup.enter.native.stop="$store.dispatch('callSetTextFilter',value)"
           append-icon="cancel"
-          @click:append="$emit('restore')"
+          @click:append="$store.dispatch('callSetTextFilter','');value=''"
           class="mt-2"
         ></v-text-field>
+        </v-flex>
       </v-flex>
-     
-      <v-spacer></v-spacer>
-      <template v-if="filters">
-          
-      <BottomSheet :label="'Géneros'" :color="'purple'" :items="filters.genres"/>
-      <BottomSheet :label="'Sistema Operativo'" :color="'blue'" :items="filters.os"/>
-      <BottomSheet :label="'Plataformas'" :color="'primary'" :items="filters.platforms"/>
+      <v-flex xs4>
+
+     <v-layout row shrink>
+
+      <BottomSheet :label="'Géneros'" :color="'rgba(155,155,155,0.9)'" :items="'genres'"/>
+      <BottomSheet :label="'Plataformas'" :color="'rgba(155,155,155,0.3)'" :items="'platforms'"/>
+      <BottomSheet :label="'Sistema Operativo'" :color="'rgba(155,155,155,0.6)'" :items="'os'"/>
       <!-- <BottomSheet :label="'Desarrollador'" :color="'cyan'" :items="filters.publishers"/> -->
-      </template>
+     </v-layout>
+      </v-flex>
     </v-toolbar>
 </template>
 <script>
@@ -34,8 +45,11 @@ export default {
     },
     data (){
         return{
-            value:''
+          value:''
         }
+    },
+    computed:{
+      
     }
 }
 </script>
