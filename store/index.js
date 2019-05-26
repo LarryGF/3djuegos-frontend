@@ -1,9 +1,9 @@
 export const state = () => ({
   games: null,
-  filters:null,
+  filters: null,
   lower: 0,
   upper: 1,
-  text_filter:''
+  text_filter: ''
 })
 
 export const mutations = {
@@ -20,10 +20,10 @@ export const mutations = {
   setTextFilter(state, value) {
     state.text_filter = value
   },
-  setSpecificFilter(state,values) {
-    state.filters.platform = value
+  setSpecificFilter(state, values) {
+    state.filters[values.filter][values.key] = values.value
   },
-  
+
 
 }
 
@@ -36,8 +36,15 @@ export const getters = {
           game.name.toLowerCase().includes(state.text_filter.toLowerCase())
         )
       } else {
-        
-        return state.games.slice(state.lower, state.upper)
+        console.log(state.filters)
+        console.log(state.games.slice(0,1))
+        return state.games.slice(state.lower, state.upper).filter(game => {
+          for (var genre_index in game.genre) {
+            if (!state.filters.genres[game.genre[genre_index]]) {
+              return false
+            } 
+          } return true
+        })
       }
     } else {
       return null
@@ -68,7 +75,7 @@ export const getters = {
   },
   getTextFilter(state) {
     if (state.text_filter) {
-      
+
       return state.text_filter
     } else {
       return ''
@@ -86,33 +93,39 @@ export const actions = {
       }
     )
   },
-  async fetchFilters({ commit }) {
+  async fetchFilters({
+    commit
+  }) {
     this.$axios.get("/db/filters.json").then(
       (response) => {
         let result = response.data
         var dictio = {}
         for (var filter in result) {
-          dictio[filter]={}
+          dictio[filter] = {}
           result[filter].map(element =>
-                dictio[filter][element] = true)
+            dictio[filter][element] = true)
         }
-        commit('setFilters',dictio)
+        commit('setFilters', dictio)
       }
     )
-    
+
   },
   callSetLimits({
     commit
   }, fromTo) {
     commit('setLimits', fromTo)
   },
-  callSetTextFilter({ commit }, value) {
-  
-    commit('setTextFilter',value)
+  callSetTextFilter({
+    commit
+  }, value) {
+
+    commit('setTextFilter', value)
   },
-  callSetFilters({commit},values){
-    commit('setSpecificFilter',values)
+  callSetFilters({
+    commit
+  }, values) {
+    commit('setSpecificFilter', values)
   },
-  
-  
+
+
 }

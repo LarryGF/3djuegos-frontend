@@ -3,7 +3,6 @@
     <v-btn slot="activator" :color="color" dark round>{{label}}</v-btn>
     <v-layout row wrap justify-space-between>
       <v-card tile color="rgba(0,0,0,0.5">
-        {{values}}
         <v-chip
           :light="item"
           v-for="(item,key) in values"
@@ -35,7 +34,7 @@ export default {
   },
   methods: {
     select: function(key,item) {
-      
+      this.$store.dispatch('callSetFilters',{filter:this.items,value:!item,key:key})
       // this.selected[this.selected.indexOf(item)].selected = !this.selected[indexOf(item)].selected
       // item.selected = !item.selected;
       // if (item.selected && this.selected.indexOf(item) === -1) {

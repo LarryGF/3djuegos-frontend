@@ -4,11 +4,11 @@
     
     <!-- <v-card flat> -->
     <ToolBar :filters="filters"/>
-
     <!-- </v-card> -->
     <!-- {{games[0]}} -->
     <Cover v-for="(game,index) in showGames" :key="game.name" :game="game" :height="height" :index="index" :width="width" @dialog="openDialog"/>
       <Dialog :dialog="dialog" :game="activeGame?activeGame:{}" @close="dialog=false" />
+    
   </v-layout>
   <!-- <v-layout v-else-if="showGames&&!type">
     <v-btn fab absolute right large @click="change" fixed>
@@ -46,7 +46,7 @@ export default {
       backedGames: [],
       count: 0,
       lower: 0,
-      upper: 200,
+      upper: 100,
       savedPositionCover:0,
       savedPositionTime:0,
       changing:false,
@@ -63,7 +63,9 @@ export default {
     }
   },
 
-  watch: {},
+  watch: {
+    
+  },
   components: {
     Cover,
     BottomSheet,
@@ -97,21 +99,21 @@ export default {
        this.height = window.innerHeight;
     this.width = window.innerWidth;
     },
-    change: function(){
-      this.changing = true
-      if (this.type){
-        this.savedPositionCover = window.pageYOffset
-        this.type = !this.type
-        this.$vuetify.goTo(this.savedPositionTime)
+    // change: function(){
+    //   this.changing = true
+    //   if (this.type){
+    //     this.savedPositionCover = window.pageYOffset
+    //     this.type = !this.type
+    //     this.$vuetify.goTo(this.savedPositionTime)
 
-      } else{
-        this.savedPositionTime = window.pageYOffset
-        this.type = !this.type
-        this.$vuetify.goTo(this.savedPositionCover)
-      }
-    setTimeout(()=>{this.changing = false},1000)
+    //   } else{
+    //     this.savedPositionTime = window.pageYOffset
+    //     this.type = !this.type
+    //     this.$vuetify.goTo(this.savedPositionCover)
+    //   }
+    // setTimeout(()=>{this.changing = false},1000)
      
-    },
+    // },
    
     scroll: function() {
       window.onscroll = () => {
@@ -124,7 +126,7 @@ export default {
           //   this.count++;
           //   this.showGames.push(this.games[this.count]);
           // }
-          this.upper = this.upper + 100;
+          this.upper = this.upper + 50;
           this.$store.dispatch("callSetLimits", {
             from: this.lower,
             to: this.upper

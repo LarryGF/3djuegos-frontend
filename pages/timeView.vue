@@ -61,15 +61,12 @@ export default {
   created() {
       console.log('created')
     if (!this.$store.getters.gamesAvailable) {
-        console.log('no games available')
       this.$store.dispatch("fetchGames");
     }
     if (!this.$store.state.filters) {
-        console.log('no filters available')
 
       this.$store.dispatch("fetchFilters");
     }
-        console.log('setting limits')
 
     this.$store.dispatch("callSetLimits", { from: this.lower, to: this.upper });
   },
