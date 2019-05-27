@@ -9,18 +9,14 @@
     "appId": "GamesCatalog",
     "productName": "GamesCatalog",
     "directories": {
-      "buildResources": "static",
-      "files": "static/*"
+      "buildResources": "static"
     },
-    "extraResources": [
-      "./pysrc",
-      "./pyenv",
-      "./boot.sh"
-    ]
+    "extraFiles": ["static"]
+   
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
-    "build": "nuxt build && electron-builder",
+    "build": "nuxt build && electron-builder -wl",
     "buildpage": "nuxt build && cp -r pysrc static",
     "electron": " electron-builder "
   },
