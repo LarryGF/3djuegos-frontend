@@ -14,8 +14,20 @@
     },
     "extraResources": [
       "static/db/*"
+      
     ],
-    "compression":"store"
+    "compression":"store",
+    "files":[
+      "**/*",
+      "static/**/*"
+    ],
+    "linux":{
+      "target":"AppImage"
+    },
+    "appImage": {
+      "systemIntegration":"doNotAsk"
+
+    }
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",

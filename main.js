@@ -38,7 +38,7 @@ const newWin = () => {
 	})
 	win.maximize()
 	win.on('closed', () => win = null)
-	win.webContents.openDevTools()
+	// win.webContents.openDevTools()
 	if (config.dev) {
 		// Install vue dev tool and open chrome dev tools
 		// const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
