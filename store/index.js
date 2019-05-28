@@ -92,28 +92,39 @@ export const actions = {
   async fetchGames({
     commit
   }) {
-    this.$axios.get("/db/db.json").then(
-      (response) => {
-        let result = response.data
-        commit('setGames', result)
-      }
-    )
+    // this.$axios.get("/db/db.json").then(
+    //   (response) => {
+    //     let result = response.data
+    //     commit('setGames', result)
+    //   }
+    // )
+    var result = require('../static/db/db.json')
+    commit('setGames', result)
+
   },
   async fetchFilters({
     commit
   }) {
-    this.$axios.get("/db/filters.json").then(
-      (response) => {
-        let result = response.data
-        var dictio = {}
+    // this.$axios.get("/db/filters.json").then(
+    //   (response) => {
+    //     let result = response.data
+    //     var dictio = {}
+    //     for (var filter in result) {
+    //       dictio[filter] = {}
+    //       result[filter].map(element =>
+    //         dictio[filter][element] = true)
+    //     }
+    //     commit('setFilters', dictio)
+    //   }
+    var result = require('../static/db/filters.json')
+    var dictio = {}
         for (var filter in result) {
           dictio[filter] = {}
           result[filter].map(element =>
             dictio[filter][element] = true)
         }
-        commit('setFilters', dictio)
-      }
-    )
+    commit('setFilters',dictio)
+    // )
 
   },
   callSetLimits({

@@ -31,6 +31,9 @@ export default {
     components:{
         // Dialog
     },
+    created(){
+      console.log(__static)
+    },
     methods:{
         openDialog: function(item){
       this.activeGame = item

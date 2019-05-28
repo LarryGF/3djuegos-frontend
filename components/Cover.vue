@@ -5,7 +5,7 @@
         
       <v-img
         slot-scope="{ hover }"
-        :src="game.image"
+        src=""
         :max-height="0.3*height"
         :max-width="0.2*width"
         gradient="transparent,transparent,black"
@@ -54,7 +54,7 @@
           <v-layout row shrink>
             <v-flex xs10 class="pt-2" >
 
-            <span class="ml-2">{{game.name}} </span>
+            <span class="ml-2">{{game.name}} {{path}}</span>
             </v-flex>
             <v-flex xs2>
 
@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import path from 'path';
 import Dialog from "../components/Dialog"
 export default {
   props: {
@@ -92,9 +93,17 @@ export default {
     return{
       dialog:false,
       activeGame:null,
+      // path : '../static/images/0rbitalis.jpg',
+      // image: require(this.path)
+      
     }
   },
   components:{
+  },
+  computed:{
+    image(){
+      // console.log(require(path.join('..','/static/images',this.game.image)))
+    }
   },
   methods:{
     
