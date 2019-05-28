@@ -32,7 +32,6 @@ export default {
         // Dialog
     },
     created(){
-      console.log(__static)
     },
     methods:{
         openDialog: function(item){

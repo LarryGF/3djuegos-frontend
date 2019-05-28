@@ -5,7 +5,7 @@
         
       <v-img
         slot-scope="{ hover }"
-        src=""
+        :src="game.image"
         :max-height="0.3*height"
         :max-width="0.2*width"
         gradient="transparent,transparent,black"

@@ -14,11 +14,12 @@
     },
     "extraResources": [
       "static/db/*"
-    ]
+    ],
+    "compression":"store"
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
-    "build": "nuxt build && electron-builder",
+    "build": "electron-builder",
     "buildpage": "nuxt build && cp -r pysrc static",
     "electron": " electron-builder "
   },
