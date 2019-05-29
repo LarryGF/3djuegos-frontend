@@ -34,8 +34,8 @@
               <v-flex xs8>
                 <v-container text-xs-start justify-center>
                   <v-flex xs12>
-                    <v-container>
-                      <v-card>
+                    <v-container class="mb-0 pb-0">
+                      <v-card >
                         <blockquote class="blockquote px-3">{{game.description}}</blockquote>
                       </v-card>
                     </v-container>
@@ -44,20 +44,22 @@
                     <v-flex xs6>
                       <v-container>
                         <v-card class="text-xs-left">
-                          <blockquote class="blockquote font-weight-medium">Fecha de publicación: {{game.datePublished}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Fecha de publicación: </blockquote>
+                          <blockquote class="blockquote">{{game.datePublished}}</blockquote>
                           <blockquote class="blockquote font-weight-medium">Plataformas:</blockquote>
                           <blockquote class="blockquote " v-for="platform in game.gamePlatform">
                             <v-icon v-html="icon(platform)">
               </v-icon>{{platform}}
                           </blockquote>
-                          <blockquote v-if="dialog" class="blockquote font-weight-medium">Rating: {{game.aggregateRating.ratingCount ?game.aggregateRating.ratingValue:'?'}}</blockquote>
+                          <blockquote  class="blockquote font-weight-medium">Rating:</blockquote>
+                          <blockquote v-if="dialog" class="blockquote"> {{game.aggregateRating.ratingCount ?game.aggregateRating.ratingValue:'?'}}</blockquote>
                           <!-- <blockquote v-if="dialog" class="blockquote font-weight-medium">Rating: {{game.aggregateRating.ratingValue }}</blockquote> -->
                           <blockquote class="blockquote font-weight-medium">Desarrollador:</blockquote>
                           <blockquote v-for="publisher in game.publisher" class="text-truncate blockquote">   <v-icon small class="mb-1">mdi-circle</v-icon> {{publisher}}</blockquote>
 
                         </v-card>
                       </v-container>
-                      <v-container>
+                      <v-container class="mt-0 pt-0">
                         <v-card class="text-xs-left">
                           <blockquote class="blockquote font-weight-medium">Géneros:</blockquote>
                           <blockquote class="blockquote" v-for="genre in game.genre"><v-icon>mdi-meteor</v-icon>{{genre}}</blockquote>
@@ -68,7 +70,7 @@
                     <v-flex xs6>
                       <v-container>
                         <v-card v-if="dialog && game.details_pc">
-                          <blockquote class="blockquote font-weight-medium text-xs-center">REQUERIMIENTOS</blockquote>
+                          <blockquote class="blockquote font-weight-medium">REQUERIMIENTOS</blockquote>
                           <blockquote class="blockquote text-xs-left">
                           <blockquote class="heading font-weight-medium">Mínimos</blockquote>
                           <blockquote class="subheading font-weight-medium">Sistema Operativo: {{game.details_pc.min.os}}</blockquote>

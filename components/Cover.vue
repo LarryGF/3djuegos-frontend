@@ -9,6 +9,7 @@
         :max-height="0.3*height"
         :max-width="0.2*width"
         gradient="transparent,transparent,black"
+        lazy-src="images/1-000-days-nombre-provisional.jpg"
       >
         <v-expand-transition>
           <div
@@ -54,7 +55,7 @@
           <v-layout row shrink>
             <v-flex xs10 class="pt-2" >
 
-            <span class="ml-2">{{game.name}} {{path}}</span>
+            <span class="ml-2">{{game.name}}</span>
             </v-flex>
             <v-flex xs2>
 
@@ -80,7 +81,6 @@
 </template>
 
 <script>
-import path from 'path';
 import Dialog from "../components/Dialog"
 export default {
   props: {
