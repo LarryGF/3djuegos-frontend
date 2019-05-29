@@ -33,18 +33,14 @@
     "dev": "cross-env NODE_ENV=DEV electron .",
     "build": "electron-builder",
     "buildpage": "nuxt build && cp -r pysrc static",
-    "electron": " electron-builder "
+    "electron": " nuxt build"
   },
   "dependencies": {
     "@mdi/font": "^3.6.95",
     "@nuxtjs/axios": "^5.4.1",
     "@nuxtjs/vuetify": "^0.5.5",
     "acorn": "^6.1.1",
-    "express": "^4.17.1",
-    "finalhandler": "^1.1.2",
     "nuxt": "^2.7.1",
-    "path": "^0.12.7",
-    "serve-static": "^1.14.1",
     "vuetify-loader": "^1.2.2"
   },
   "devDependencies": {
