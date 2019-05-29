@@ -14,18 +14,18 @@
     },
     "extraResources": [
       "static/db/*"
-      
+
     ],
-    "compression":"store",
-    "files":[
+    "compression": "store",
+    "files": [
       "**/*",
       "static/**/*"
     ],
-    "linux":{
-      "target":"AppImage"
+    "linux": {
+      "target": "AppImage"
     },
     "appImage": {
-      "systemIntegration":"doNotAsk"
+      "systemIntegration": "doNotAsk"
 
     }
   },

@@ -9,7 +9,7 @@
         :max-height="0.3*height"
         :max-width="0.2*width"
         gradient="transparent,transparent,black"
-        lazy-src="images/1-000-days-nombre-provisional.jpg"
+        :lazy-src="lazy"
       >
         <v-expand-transition>
           <div
@@ -93,6 +93,7 @@ export default {
     return{
       dialog:false,
       activeGame:null,
+      lazy:require('../assets/img/lazy.jpg')
       // path : '../static/images/0rbitalis.jpg',
       // image: require(this.path)
       
