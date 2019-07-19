@@ -92,13 +92,13 @@ export const actions = {
   async fetchGames({
     commit
   }) {
-    // this.$axios.get("/db/db.json").then(
-    //   (response) => {
-    //     let result = response.data
-    //     commit('setGames', result)
-    //   }
-    // )
-    var result = require('../static/db/db.json')
+    this.$axios.get("/db/db.json").then(
+      (response) => {
+        let result = response.data
+        commit('setGames', result)
+      }
+    )
+    // var result = require('../static/db/db.json')
     commit('setGames', result)
 
   },
