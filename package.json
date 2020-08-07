@@ -31,7 +31,7 @@
     "dev": "cross-env NODE_ENV=DEV electron .",
     "build": "electron-builder",
     "buildpage": "nuxt build && cp -r pysrc static",
-    "electron": " nuxt build"
+    "nuxt-build": " nuxt build"
   },
   "dependencies": {
     "@mdi/font": "^3.6.95",
@@ -49,7 +49,6 @@
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "cross-env": "^5.1.4",
-    "electron": "2.0.0-beta.7",
     "electron-builder": "^20.8.1",
     "electron-devtools-installer": "^2.2.3",
     "eslint": "^4.19.1",
