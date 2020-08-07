@@ -8,8 +8,8 @@
         :src="game.image"
         :max-height="0.3*height"
         :max-width="0.2*width"
-        lazy-src="images/dissidia-012-prologus.jpg"
         gradient="transparent,transparent,black"
+        :lazy-src="lazy"
       >
         <v-expand-transition>
           <div
@@ -21,15 +21,21 @@
               <v-spacer></v-spacer>
             <v-layout row shrink justify-center>
               <v-flex xs4>
+                <v-layout column justify-center fill-height>
 
-              ({{game.gamePlatform == 'Nintendo Switch'? 'Switch':game.gamePlatform}})
+             <template v-for="platform in game.gamePlatform" > ({{platform == 'Nintendo Switch'? 'Switch':platform}})<br></template>
+             
+              </v-layout>
               </v-flex>
-              <v-flex xs2>
-              <v-icon v-html="icon(game)">
+              <v-flex xs1>
+              <v-icon v-for="platform in game.gamePlatform" :key="platform" v-html="icon(platform)">
               </v-icon>
               </v-flex>
               <v-flex xs4>
-                {space slot}
+                <v-layout column justify-center fill-height>
+
+                {{game.details_pc?game.details_pc.min.size:''}}
+                </v-layout>
               </v-flex>
 
             </v-layout>
@@ -37,7 +43,7 @@
 
             <v-layout row shrink justify-center>
               <v-flex xs4>
-                <v-btn class="mb-5"color="primary" @click.stop="openDialog(game)" round>Detalles</v-btn>
+                <v-btn class="mb-5"color="primary" @click.stop="$emit('dialog',index)" round>Detalles</v-btn>
               </v-flex>
 
             </v-layout>
@@ -45,18 +51,31 @@
           </div>
         </v-expand-transition>
         <v-layout column fill-height justify-end>
-          <v-spacer></v-spacer>
+          <!-- <v-spacer></v-spacer> -->
           <v-layout row shrink>
-            <span class="ml-2 mt-3">{{game.name}}</span>
-            <v-spacer></v-spacer>
-            <v-avatar style="position:relative" color="rgba(70,70,70,0.8)" >
+            <v-flex xs10 class="pt-2" >
+
+            <span class="ml-2">{{game.name}}</span>
+            </v-flex>
+            <v-flex xs2>
+
+            <v-avatar  color="rgba(70,70,70,0.8)" >
               <span>{{game.aggregateRating.ratingValue== "\u00a0" ? '-': game.aggregateRating.ratingValue  }}</span>
             </v-avatar>
+            </v-flex>
           </v-layout>
         </v-layout>
+        <v-layout
+                    slot="placeholder"
+                    fill-height
+                    align-center
+                    justify-center
+                    ma-0
+                  >
+                    <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                  </v-layout>
       </v-img>
       </v-hover>
-      <Dialog :dialog="dialog" :game="activeGame?activeGame:{}" @close="dialog=false" />
     </v-layout>
   </v-flex>
 </template>
@@ -68,23 +87,29 @@ export default {
     game: Object,
     height: Number,
     width: Number,
+    index: Number
   },
   data(){
     return{
       dialog:false,
       activeGame:null,
+      lazy:require('../assets/img/lazy.jpg')
+      // path : '../static/images/0rbitalis.jpg',
+      // image: require(this.path)
+      
     }
   },
   components:{
-    Dialog
+  },
+  computed:{
+    image(){
+      // console.log(require(path.join('..','/static/images',this.game.image)))
+    }
   },
   methods:{
-    openDialog: function(item){
-      this.activeGame = item
-      this.dialog = true
-    },
-    icon:function(item){
-      switch (item.gamePlatform){
+    
+    icon:function(platform){
+      switch (platform){
         case 'XBOX':
         return 'mdi-xbox';
         case 'PC':

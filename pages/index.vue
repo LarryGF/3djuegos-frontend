@@ -1,144 +1,54 @@
-
+ 
 <template>
-  <v-layout row wrap v-if="games">
-    <!-- <v-card flat> -->
-    <v-toolbar light app color="rgba(255,255,255,0.9)">
-      
+  <!-- <img src="~assets/img/main.jpg"></img> -->
+  <v-layout row justify-end v-resize="onResize" shrink>
+    <v-toolbar  absolute color="rgba(0,0,0,0.4)" height="60%">
       <v-flex xs4>
-
-      <v-text-field
-        label="Filtra"
-        v-model="value"
-        @keyup.enter.native.stop="filter"
-        append-icon="cancel"
-        @click:append="restore"
-        outline
-        class="mt-2"
-      ></v-text-field>
+      <v-btn class="mx-2" dark  :disabled="!$store.state.games" to="/" icon> <v-icon large>mdi-home-outline</v-icon></v-btn>
+      <v-btn class="mx-2" dark  :disabled="!$store.state.games" to="/catalog" icon> <v-icon large>mdi-xbox-controller</v-icon></v-btn>
+      <v-btn class="mx-2" dark  :disabled="!$store.state.games" to="/timeView" icon> <v-icon large>mdi-timeline-text</v-icon></v-btn>
       </v-flex>
-      <v-spacer></v-spacer>
-      <BottomSheet :label="'Géneros'" :color="'purple'" :items="genres"/>
-      <BottomSheet :label="'Sistema Operativo'" :color="'blue'" :items="os"/>
-      <BottomSheet :label="'Plataformas'" :color="'primary'" :items="platforms"/>
-      <BottomSheet :label="'Desarrollador'" :color="'cyan'" :items="publishers"/>
-    
-      
     </v-toolbar>
+    
+    <v-img
+      
+      :height="height"
+      :src="image"
+      :gradient="$store.state.games?'':'rgba(0,0,0,0.5),rgba(0,0,0,0.5)'"
+    ></v-img>
+    <v-footer  app dark>
+      <span>&copy; {{ new Date().getFullYear() }}</span>
 
-    <!-- </v-card> -->
-    <!-- {{games[0]}} -->
-    <Cover v-for="game in showGames" :key="game.name" :game="game" :height="height" :width="width" 
-    />
+    </v-footer>
   </v-layout>
-    <v-layout v-else column fill-height justify-center>
-      <v-layout row shrink justify-center>
-
-    <v-progress-circular
-    size="80"
-      indeterminate
-      color="primary"
-    ></v-progress-circular>
-      </v-layout>
-    </v-layout>
 </template>
 
 <script>
-import Cover from "../components/Cover";
-import BottomSheet from "../components/BottomSheet"
 export default {
-  data() {
-    return {
-      value:'',
-      height: 0,
-      width: 0,
-      games: null,
-      showGames: [],
-      backedGames: [],
-      count: 0,
-      genres:[],
-      os:[],
-      platforms:[],
-      publishers:[]
-    };
-  },
-  computed:{
-     
-  },
-
-  watch: {},
-  components: {
-    Cover,
-    BottomSheet,
-  },
+  layout: "main",
   mounted() {
-    // this.fetch()
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
-    this.getGames();
-    this.scroll();
-    this.getFilters()
+    this.onResize();
+    // console.log(require('../static/db/filters.json'))
+    
+  },
+  created() {
+    if (!this.$store.state.games) {
+      this.$store.dispatch("fetchGames");
+    }
+    if (!this.$store.state.filters) {
+      this.$store.dispatch("fetchFilters");
+    }
   },
   methods: {
-    getGames: async function() {
-      this.games = (await this.$axios.get("/db/db.json")).data;
-      for (this.count; this.count < 24; this.count++) {
-        this.showGames.push(this.games[this.count]);
-      }
-
-      // console.log(this.$router)
-    },
-    getFilters: async function (){
-      this.publishers = (await this.$axios.get("/db/publishers.json")).data;
-      this.publishers = this.publishers.map((element)=>Object({name:element, selected:true}))
-      this.platforms = (await this.$axios.get("/db/platforms.json")).data;
-      this.platforms = this.platforms.map((element)=>Object({name:element, selected:true}))
-      this.os = (await this.$axios.get("/db/os.json")).data;
-      this.os = this.os.map((element)=>Object({name:element, selected:true}))
-      this.genres = (await this.$axios.get("/db/genres.json")).data;
-      this.genres = this.genres.map((element)=>Object({name:element, selected:true}))
-
-    },
-    scroll: function() {
-      window.onscroll = () => {
-        let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
-          document.documentElement.offsetHeight;
-
-        if (bottomOfWindow && this.backedGames.length === 0) {
-          for (var i = 0; i < 12; i++) {
-            this.count++;
-            this.showGames.push(this.games[this.count]);
-          }
-        }
-      };
-    },
-    filter: function() {
-      console.log("filtering");
-      if(this.value !== ''){
-
-        this.backedGames = this.backedGames.concat(this.showGames);
-      this.showGames = [];
-      for (var game in this.games) {
-        if (
-          this.games[game].name.toLowerCase().includes(this.value.toLowerCase())
-        ) {
-          this.showGames.push(this.games[game]);
-        }
-      }
-      }
-      // console.log(this.backedGames);
-    },
-    restore: function() {
-      this.showGames = this.backedGames;
-      this.backedGames = [];
-      this.$forceUpdate();
-      this.value = "";
-    },
-    hover: function(){
-      console.log('hover')
+    onResize: function() {
+      this.height = window.innerHeight;
     }
+  },
+  data() {
+    return {
+      height: 0,
+      image: require('../static/internals/main.jpg')
+    };
   }
 };
 </script>
-
-

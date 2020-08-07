@@ -2,7 +2,7 @@ module.exports = {
 	modules: [ '@nuxtjs/axios', '@nuxtjs/vuetify'],
 	mode: 'spa',
 	head: {
-		title: 'FileSync',
+		title: 'GamesCatalog',
 		meta: [{
 			charset: 'utf-8'
 		  },
@@ -24,21 +24,25 @@ module.exports = {
 		 
 		  ],
 }, // Headers of the page
-	loading: true, // Disable default loading bar
+	loading: {color:'primary',height:'5px'}, // Disable default loading bar
+	loadingIndicator: {
+		name: 'folding-cube',
+		color: 'rgba(125,125,125,1)',
+	background:'rgba(0,0,0,0)'},
 	build: {
-		extend (config, { isDev, isClient }) {
-			if (isDev && isClient) {
-				// Run ESLint on save
-				config.module.rules.push({
-					enforce: 'pre',
-					test: /\.(js|vue)$/,
-					loader: 'eslint-loader',
-					exclude: /(node_modules)/
-				})
-			}
-			// Extend only webpack config for client-bundle
-			if (isClient) { config.target = 'electron-renderer' }
-		}
+		// extend (config, { isDev, isClient }) {
+		// 	if (isDev && isClient) {
+		// 		// Run ESLint on save
+		// 		config.module.rules.push({
+		// 			enforce: 'pre',
+		// 			test: /\.(js|vue)$/,
+		// 			loader: 'eslint-loader',
+		// 			exclude: /(node_modules)/
+		// 		})
+		// 	}
+		// 	// Extend only webpack config for client-bundle
+		// 	if (isClient) { config.target = 'electron-renderer' }
+		// }
 	},
 	dev: process.env.NODE_ENV === 'DEV',
 	css: [

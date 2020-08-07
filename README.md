@@ -12,6 +12,6 @@ $ npm install # Or yarn install
 $ npm run dev
 
 # build for production
-$ npm run build
+$ electron-build -wl
 
-For detailed explanation on how things work, checkout [Nuxt.js](https://github.com/nuxt/nuxt.js), [Electron.js](https://electronjs.org/), and [electron-builder](https://www.electron.build/).
+In order for it to run in Windows it needs to be permitted through the firewall, also, you can not have the proxy set.

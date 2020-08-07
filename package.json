@@ -1,8 +1,8 @@
 {
-  "name": "elecnuxt",
-  "version": "1.0.0",
+  "name": "GamesCatalog",
+  "version": "1.0.1",
   "description": "Nuxt + Electron",
-  "author": "hian <hiancdtrsnm@gmail.com>",
+  "author": "larrygf <larrywt609@gmail.com>",
   "private": true,
   "main": "main.js",
   "build": {
@@ -10,32 +10,45 @@
     "productName": "GamesCatalog",
     "directories": {
       "buildResources": "static",
-      "files": "static/*"
+      "output": "compiled"
     },
     "extraResources": [
-      "./pysrc",
-      "./pyenv",
-      "./boot.sh"
-    ]
+      "static/db/*"
+    ],
+    "compression": "store",
+    "files": [
+      "**/*",
+      "static/**/*"
+    ],
+    "linux": {
+      "target": "AppImage"
+    },
+    "appImage": {
+      "systemIntegration": "doNotAsk"
+    }
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
-    "build": "nuxt build && electron-builder",
+    "build": "electron-builder",
     "buildpage": "nuxt build && cp -r pysrc static",
-    "electron": " electron-builder "
+    "nuxt-build": " nuxt build"
   },
   "dependencies": {
     "@mdi/font": "^3.6.95",
     "@nuxtjs/axios": "^5.4.1",
     "@nuxtjs/vuetify": "^0.5.5",
     "acorn": "^6.1.1",
-    "nuxt": "^2.7.1",
-    "vuetify-loader": "^1.2.2"
+    "axios": "^0.19.0",
+    "babel-cli": "^6.26.0",
+    "nuxt": "^2.8.1",
+    "vue": "^2.6.10",
+    "vuetify": "^1.5.16",
+    "vuetify-loader": "^1.2.2",
+    "webpack": "^4.36.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "cross-env": "^5.1.4",
-    "electron": "2.0.0-beta.7",
     "electron-builder": "^20.8.1",
     "electron-devtools-installer": "^2.2.3",
     "eslint": "^4.19.1",

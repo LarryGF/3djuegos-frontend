@@ -3,13 +3,12 @@
     <v-dialog
       v-model="dialog"
       fullscreen
-      persistent
       hide-overlay
       transition="dialog-bottom-transition"
       @keyup="handleKeys($event)"
     >
       <v-card color="rgba(0,0,0,0.9)">
-        <v-toolbar color="transparent">
+        <v-toolbar color="rgba(0,0,0,0.9)" fixed>
           <v-spacer></v-spacer>
           <v-toolbar-title class="headline">{{game.name}}</v-toolbar-title>
           <v-spacer></v-spacer>
@@ -19,46 +18,84 @@
             </v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        <v-card-text>
+        <v-card-text >
           <v-layout column justify-center>
             <v-layout row shrink justify-center>
               <v-flex xs4>
-                <v-img :src="game.image"></v-img>
-              </v-flex>
-              <v-flex xs8>
-                <v-container text-xs-center justify-center>
+                <v-container text-xs-start justify-center>
                   <v-flex xs12>
                     <v-container>
-                      <v-card>
-                        <blockquote class="blockquote">{{game.description}}</blockquote>
+                <v-img :src="game.image"></v-img>
+                </v-container>
+                  </v-flex>
+                </v-container>
+              </v-flex>
+              <v-flex xs8>
+                <v-container text-xs-start justify-center>
+                  <v-flex xs12>
+                    <v-container class="mb-0 pb-0">
+                      <v-card >
+                        <blockquote class="blockquote px-3">{{game.description}}</blockquote>
                       </v-card>
                     </v-container>
                   </v-flex>
                   <v-layout row justify-start shrink>
-                    <v-flex xs4>
+                    <v-flex xs6>
                       <v-container>
                         <v-card class="text-xs-left">
-                          <blockquote class="blockquote">Fecha de publicación: {{game.datePublished}}</blockquote>
-                          <blockquote class="blockquote"><v-icon v-html="icon(game)">
-              </v-icon> Plataforma: {{game.gamePlatform}}</blockquote>
-                          <blockquote class="blockquote">Rating: {{game.aggregateRating?game.aggregateRating.ratingValue:'-'}}</blockquote>
-                          <blockquote class="blockquote">Desarrollador:</blockquote>
-                          <blockquote v-for="publisher in game.publisher"class="blockquote"><v-icon small class="mb-1">mdi-circle</v-icon> {{publisher}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Fecha de publicación: </blockquote>
+                          <blockquote class="blockquote">{{game.datePublished}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Plataformas:</blockquote>
+                          <blockquote class="blockquote " v-for="platform in game.gamePlatform">
+                            <v-icon v-html="icon(platform)">
+              </v-icon>{{platform}}
+                          </blockquote>
+                          <blockquote  class="blockquote font-weight-medium">Rating:</blockquote>
+                          <blockquote v-if="dialog" class="blockquote"> {{game.aggregateRating.ratingCount ?game.aggregateRating.ratingValue:'?'}}</blockquote>
+                          <!-- <blockquote v-if="dialog" class="blockquote font-weight-medium">Rating: {{game.aggregateRating.ratingValue }}</blockquote> -->
+                          <blockquote class="blockquote font-weight-medium">Desarrollador:</blockquote>
+                          <blockquote v-for="publisher in game.publisher" class="text-truncate blockquote">   <v-icon small class="mb-1">mdi-circle</v-icon> {{publisher}}</blockquote>
 
                         </v-card>
                       </v-container>
-                      <v-container>
+                      <v-container class="mt-0 pt-0">
                         <v-card class="text-xs-left">
-                          <blockquote class="blockquote">Géneros:</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Géneros:</blockquote>
                           <blockquote class="blockquote" v-for="genre in game.genre"><v-icon>mdi-meteor</v-icon>{{genre}}</blockquote>
                         </v-card>
 
                       </v-container>
                     </v-flex>
-                    <v-flex xs8>
+                    <v-flex xs6>
                       <v-container>
-                        <v-card>
-                          <blockquote class="blockquote">{{game}}</blockquote>
+                        <v-card v-if="dialog && game.details_pc">
+                          <blockquote class="blockquote font-weight-medium">REQUERIMIENTOS</blockquote>
+                          <blockquote class="blockquote text-xs-left">
+                          <blockquote class="heading font-weight-medium">Mínimos</blockquote>
+                          <blockquote class="subheading font-weight-medium">Sistema Operativo: {{game.details_pc.min.os}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Microprocesador: {{game.details_pc.min.micro}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">RAM: {{game.details_pc.min.ram}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Tarjeta Gráfica: {{game.details_pc.min.tarjeta_grafica}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">DirectX: {{game.details_pc.min.directX}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Tamaño: {{game.details_pc.min.size}}</blockquote>
+                          <br>
+                          <blockquote class="heading font-weight-medium">Recomendados</blockquote>
+                          <blockquote class="subheading font-weight-medium">Sistema Operativo: {{game.details_pc.max.os}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Microprocesador: {{game.details_pc.max.micro}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">RAM: {{game.details_pc.max.ram}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Tarjeta Gráfica: {{game.details_pc.max.tarjeta_grafica}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">DirectX: {{game.details_pc.max.directX}}</blockquote>
+                          <blockquote class="subheading font-weight-medium">Tamaño: {{game.details_pc.max.size}}</blockquote>
+                          
+
+                            
+                            </blockquote>
+                        </v-card>
+                        <v-card v-else-if="dialog && game.gamePlatform == 'PC'">
+                          <blockquote class="blockquote font-weight-medium">No contamos con los requisitos para este juego.</blockquote>                          
+                        </v-card>
+                        <v-card v-else>
+                          <blockquote class="blockquote font-weight-medium">Los juegos de consola no tienen requerimientos.</blockquote>                          
                         </v-card>
                       </v-container>
                     </v-flex>
@@ -91,9 +128,8 @@ export default {
     handleKeys: function(event) {
       console.log(event);
     },
-    icon:function(item){
-      console.log(item)
-      switch (item.gamePlatform){
+    icon:function(platform){
+      switch (platform){
         case 'XBOX':
         return 'mdi-xbox';
         case 'PC':
