@@ -2,7 +2,7 @@
   <v-flex xs3>
     <v-layout column my-2 px-2 fill-height>
       <v-hover>
-        
+
       <v-img
         slot-scope="{ hover }"
         :src="game.image"
@@ -18,35 +18,21 @@
             style="height: 100%; background-color:rgba(0,0,0,0.7)"
           >
             <v-layout column  justify-end text-xs-center>
-              <v-spacer></v-spacer>
-            <v-layout row shrink justify-center>
-              <v-flex xs4>
-                <v-layout column justify-center fill-height>
 
-             <template v-for="platform in game.gamePlatform" > ({{platform == 'Nintendo Switch'? 'Switch':platform}})<br></template>
-             
+              <v-spacer></v-spacer>
+
+              <v-layout justify-center>
+                {{game.type}}
               </v-layout>
-              </v-flex>
-              <v-flex xs1>
-              <v-icon v-for="platform in game.gamePlatform" :key="platform" v-html="icon(platform)">
-              </v-icon>
-              </v-flex>
-              <v-flex xs4>
-                <v-layout column justify-center fill-height>
 
-                {{game.details_pc?game.details_pc.min.size:''}}
-                </v-layout>
-              </v-flex>
-
-            </v-layout>
               <v-spacer></v-spacer>
 
-            <v-layout row shrink justify-center>
-              <v-flex xs4>
-                <v-btn class="mb-5"color="primary" @click.stop="$emit('dialog',index)" round>Detalles</v-btn>
-              </v-flex>
+              <v-layout row justify-center >
+                <v-flex xs12>
+                  <v-btn class="mb-5" color="primary" @click.stop="$emit('dialog',index)" round>Detalles</v-btn>
+                </v-flex>
 
-            </v-layout>
+              </v-layout>
             </v-layout>
           </div>
         </v-expand-transition>
@@ -66,14 +52,14 @@
           </v-layout>
         </v-layout>
         <v-layout
-                    slot="placeholder"
-                    fill-height
-                    align-center
-                    justify-center
-                    ma-0
-                  >
-                    <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                  </v-layout>
+          slot="placeholder"
+          fill-height
+          align-center
+          justify-center
+          ma-0
+        >
+          <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+        </v-layout>
       </v-img>
       </v-hover>
     </v-layout>

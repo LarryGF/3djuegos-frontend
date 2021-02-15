@@ -59,9 +59,10 @@
                       </v-container>-->
                       <v-container>
                         <v-card class="text-xs-left">
+                          <blockquote class="blockquote font-weight-medium">Tipo:&nbsp;&nbsp;{{game.type}}</blockquote>
                           <blockquote class="blockquote font-weight-medium">Géneros:</blockquote>
                           <v-layout row wrap>
-                          <blockquote class="blockquote" v-for="genre in game.genre"><v-icon>mdi-meteor</v-icon>{{genre}}</blockquote>
+                            <blockquote class="blockquote" v-for="genre in game.genre"><v-icon>mdi-meteor</v-icon>{{genre}}</blockquote>
                           </v-layout>
                         </v-card>
 
@@ -106,11 +107,6 @@
             </v-layout>
           </v-layout>
         </v-card-text>
-        <!-- <v-img
-        :src="game.image"
-        lazy-src="images/dissidia-012-prologus.jpg"
-        gradient="transparent,transparent,black"
-        ></v-img>-->
       </v-card>
     </v-dialog>
   </v-layout>
