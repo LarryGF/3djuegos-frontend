@@ -36,7 +36,55 @@ export const getters = {
           game.name.toLowerCase().includes(state.text_filter.toLowerCase())
         )
       } else {
-        return state.games.slice(state.lower, state.upper).filter(game => {
+
+        var expres = '';
+        var rexpres = RegExp('');
+        const applied_letter_filter  = Object.values(state.filters.letter).some((val) => val);
+
+        if(applied_letter_filter) {
+          for (var letter_index in state.filters.letter) {
+            //console.log(letter_index);
+            //console.log(state.filters.letter[letter_index]);
+            if(state.filters.letter[letter_index]){
+              expres += state.filters['letter_data'][letter_index];
+            }
+          }
+          rexpres = RegExp('['+expres+']');
+        }
+
+        const applied_genre_filter  = Object.values(state.filters.genres).some((val) => val);
+
+        if(!applied_genre_filter && !applied_letter_filter){
+          return state.games.slice(state.lower, state.upper);
+        }
+
+        if(applied_genre_filter && !applied_letter_filter){
+          return state.games.filter(game => {
+            for (var genre_index in game.genre) {
+              if (!state.filters.genres[game.genre[genre_index]]) {
+                return false;
+              }
+            } return true;
+          }).slice(state.lower, state.upper);
+        }
+
+        if(!applied_genre_filter && applied_letter_filter){
+          return state.games.filter(game => {
+            return !!game.name[0].match(rexpres);
+          }).slice(state.lower, state.upper);
+        }
+
+        return state.games.filter(game => {
+          return !!game.name[0].match(rexpres);
+        }).filter(game => {
+          for (var genre_index in game.genre) {
+            if (!state.filters.genres[game.genre[genre_index]]) {
+              return false;
+            }
+          } return true;
+        }).slice(state.lower, state.upper);
+
+        /*return state.games.slice(state.lower, state.upper).filter(game => {
           for (var genre_index in game.genre) {
             if (!state.filters.genres[game.genre[genre_index]]) {
               return false
@@ -50,7 +98,7 @@ export const getters = {
           } return true
         }).filter(game => 
           state.filters.os[game.operatingSystem]
-        )
+        )*/
       }
     } else {
       return null
@@ -121,8 +169,19 @@ export const actions = {
         for (var filter in result) {
           dictio[filter] = {}
           result[filter].map(element =>
-            dictio[filter][element] = true)
+            dictio[filter][element] = false)
         }
+        dictio['letter'] = {}
+        dictio['letter_data'] = {}
+        for(var filter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'){
+          dictio['letter'][filter]=false;
+          dictio['letter_data'][filter]=filter+filter.toLowerCase();
+        }
+        dictio['letter']['0-9'] = false;
+        dictio['letter_data']['0-9'] = '0-9';
+        dictio['letter']['.'] = false;
+        dictio['letter_data']['.'] = '\\W';
+        //console.log(dictio)
     commit('setFilters',dictio)
     // )
 

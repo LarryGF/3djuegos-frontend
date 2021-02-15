@@ -100,7 +100,7 @@ export default {
       })).data
     },
     goBack: async function () {
-      console.log('back')
+      //console.log('back')
       if (this.progressivePath.length > 1) {
         this.progressivePath.pop()
         this.Route = this.progressivePath[this.progressivePath.length - 1]

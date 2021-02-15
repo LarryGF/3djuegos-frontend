@@ -59,7 +59,7 @@ export default {
     Dialog
   },
   created() {
-      console.log('created')
+      //console.log('created')
     if (!this.$store.getters.gamesAvailable) {
       this.$store.dispatch("fetchGames");
     }
@@ -80,7 +80,7 @@ export default {
     openDialog: function(index){
       this.activeGame = this.showGames[index]
       this.dialog = true
-      console.log(this.dialog)
+      //console.log(this.dialog)
     },
     onResize: function (){
        this.height = window.innerHeight;
@@ -122,7 +122,7 @@ export default {
       };
     },
     filter: function() {
-      console.log("filtering");
+      //console.log("filtering");
       if (this.value !== "") {
         this.backedGames = this.backedGames.concat(this.showGames);
         this.showGames = [];
@@ -132,7 +132,7 @@ export default {
           )
         );
         this.$forceUpdate();
-        console.log(this.showGames);
+        //console.log(this.showGames);
       }
     },
     restore: function() {
@@ -144,7 +144,7 @@ export default {
     hover: function() {
       this.$forceUpdate();
 
-      console.log("hover");
+      //console.log("hover");
     }
   }
 };

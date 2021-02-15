@@ -2,7 +2,7 @@
   "name": "GamesCatalog",
   "version": "1.0.1",
   "description": "Nuxt + Electron",
-  "author": "larrygf <larrywt609@gmail.com>",
+  "author": "fsadannn <fsadannn@gmail.com>, larrygf <larrywt609@gmail.com>",
   "private": true,
   "main": "main.js",
   "build": {

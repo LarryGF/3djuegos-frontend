@@ -5,8 +5,8 @@
     <v-toolbar  absolute color="rgba(0,0,0,0.4)" height="60%">
       <v-flex xs4>
       <v-btn class="mx-2" dark  :disabled="!$store.state.games" to="/" icon> <v-icon large>mdi-home-outline</v-icon></v-btn>
-      <v-btn class="mx-2" dark  :disabled="!$store.state.games" to="/catalog" icon> <v-icon large>mdi-xbox-controller</v-icon></v-btn>
-      <v-btn class="mx-2" dark  :disabled="!$store.state.games" to="/timeView" icon> <v-icon large>mdi-timeline-text</v-icon></v-btn>
+      <v-btn class="mx-2" dark  :disabled="!$store.state.games" to="/catalog" icon> <v-icon large>mdi-library-movie</v-icon></v-btn>
+      <!--<v-btn class="mx-2" dark  :disabled="!$store.state.games" to="/timeView" icon> <v-icon large>mdi-timeline-text</v-icon></v-btn>-->
       </v-flex>
     </v-toolbar>
     

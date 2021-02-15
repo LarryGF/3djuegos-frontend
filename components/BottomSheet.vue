@@ -11,7 +11,7 @@
           @click="select(key,item)"
         >
           <v-avatar>
-            <v-icon :color="item?'red':'green'">{{item?'cancel':'check_circle'}}</v-icon>
+            <v-icon :color="!item?'red':'green'">{{!item?'cancel':'check_circle'}}</v-icon>
           </v-avatar>
           {{key}}
         </v-chip>

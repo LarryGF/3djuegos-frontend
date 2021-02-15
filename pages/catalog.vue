@@ -1,5 +1,5 @@
 
-<template>
+<template> 
   <v-layout row wrap v-if="showGames&&type" v-resize="onResize">
     
     <!-- <v-card flat> -->
@@ -30,7 +30,7 @@
 
 <script>
 import goTo from 'vuetify/lib/components/Vuetify/goTo'
-import TimeLine from "../components/TimeLine";
+//import TimeLine from "../components/TimeLine";
 import Cover from "../components/Cover";
 import BottomSheet from "../components/BottomSheet";
 import ToolBar from "../components/ToolBar";
@@ -70,11 +70,11 @@ export default {
     Cover,
     BottomSheet,
     ToolBar,
-    TimeLine,
+    //TimeLine,
     Dialog
   },
   created() {
-    console.log("created");
+    //console.log("created");
     if (!this.$store.getters.gamesAvailable) {
       this.$store.dispatch("fetchGames");
     }
@@ -93,7 +93,7 @@ export default {
     openDialog: function(index){
       this.activeGame = this.showGames[index]
       this.dialog = true
-      console.log(this.dialog)
+      //console.log(this.dialog)
     },
     onResize: function (){
        this.height = window.innerHeight;
@@ -117,10 +117,15 @@ export default {
    
     scroll: function() {
       window.onscroll = () => {
+        //console.log('scroll');
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
-          document.documentElement.offsetHeight;
-
+          Math.abs(document.documentElement.scrollTop + window.innerHeight - document.documentElement.offsetHeight)<1;
+        /*console.log(document.documentElement.scrollTop + window.innerHeight);
+         console.log(document.documentElement.offsetHeight);
+        console.log(bottomOfWindow);
+        console.log(this.backedGames.length);
+        console.log(this.changing);
+        console.log(bottomOfWindow && this.backedGames.length === 0 && !this.changing);*/
         if (bottomOfWindow && this.backedGames.length === 0 && !this.changing) {
           // for (var i = 0; i < 48; i++) {
           //   this.count++;

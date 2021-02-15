@@ -36,7 +36,10 @@ const app = electron.app
 const newWin = () => {
 	console.log('here')
 	win = new electron.BrowserWindow({
-		icon: path.join(__dirname, 'static/icon.png')
+		icon: path.join(__dirname, 'static/icon.png'),
+		webPreferences: {
+            contextIsolation: true
+        }
 	})
 	win.maximize()
 	win.on('closed', () => win = null)
@@ -48,6 +51,8 @@ const newWin = () => {
 		// 	console.log(`Added Extension:  ${name}`)
 		// 	win.webContents.openDevTools()
 		// }).catch(err => console.log('An error occurred: ', err))
+		// open the devtools.
+		win.openDevTools();
 		// Wait for nuxt to build
 		const pollServer = () => {
 			http.get(_NUXT_URL_, (res) => {

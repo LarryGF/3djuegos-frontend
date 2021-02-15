@@ -59,9 +59,9 @@
             </v-flex>
             <v-flex xs2>
 
-            <v-avatar  color="rgba(70,70,70,0.8)" >
+            <!--<v-avatar  color="rgba(70,70,70,0.8)" >
               <span>{{game.aggregateRating.ratingValue== "\u00a0" ? '-': game.aggregateRating.ratingValue  }}</span>
-            </v-avatar>
+            </v-avatar>-->
             </v-flex>
           </v-layout>
         </v-layout>

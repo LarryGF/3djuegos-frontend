@@ -2,7 +2,7 @@
     <v-timeline>
       <v-timeline-item v-for="(game,index) in showGames" :key="game.name" color="red lighten-2" >
           <v-avatar slot="icon" small>
-              <span>{{game.aggregateRating.ratingValue== "\u00a0" ? '-': game.aggregateRating.ratingValue  }}</span>
+              <!--<span>{{game.aggregateRating.ratingValue== "\u00a0" ? '-': game.aggregateRating.ratingValue  }}</span>-->
       </v-avatar>
         <span slot="opposite">{{game.datePublished}}</span>
         <v-card class="elevation-2" @click="$emit('dialog',index)">

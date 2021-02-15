@@ -40,33 +40,34 @@
                     </v-container>
                   </v-flex>
                   <v-layout row justify-start shrink>
-                    <v-flex xs6>
-                      <v-container>
+                    <v-flex xs12>
+                      <!--<v-container>
                         <v-card class="text-xs-left">
                           <blockquote class="blockquote font-weight-medium">Fecha de publicación: </blockquote>
                           <blockquote class="blockquote">{{game.datePublished}}</blockquote>
                           <blockquote class="blockquote font-weight-medium">Plataformas:</blockquote>
                           <blockquote class="blockquote " v-for="platform in game.gamePlatform">
                             <v-icon v-html="icon(platform)">
-              </v-icon>{{platform}}
+                            </v-icon>{{platform}}
                           </blockquote>
                           <blockquote  class="blockquote font-weight-medium">Rating:</blockquote>
                           <blockquote v-if="dialog" class="blockquote"> {{game.aggregateRating.ratingCount ?game.aggregateRating.ratingValue:'?'}}</blockquote>
-                          <!-- <blockquote v-if="dialog" class="blockquote font-weight-medium">Rating: {{game.aggregateRating.ratingValue }}</blockquote> -->
                           <blockquote class="blockquote font-weight-medium">Desarrollador:</blockquote>
                           <blockquote v-for="publisher in game.publisher" class="text-truncate blockquote">   <v-icon small class="mb-1">mdi-circle</v-icon> {{publisher}}</blockquote>
 
                         </v-card>
-                      </v-container>
-                      <v-container class="mt-0 pt-0">
+                      </v-container>-->
+                      <v-container>
                         <v-card class="text-xs-left">
                           <blockquote class="blockquote font-weight-medium">Géneros:</blockquote>
+                          <v-layout row wrap>
                           <blockquote class="blockquote" v-for="genre in game.genre"><v-icon>mdi-meteor</v-icon>{{genre}}</blockquote>
+                          </v-layout>
                         </v-card>
 
                       </v-container>
                     </v-flex>
-                    <v-flex xs6>
+                    <!--<v-flex xs6>
                       <v-container>
                         <v-card v-if="dialog && game.details_pc">
                           <blockquote class="blockquote font-weight-medium">REQUERIMIENTOS</blockquote>
@@ -98,7 +99,7 @@
                           <blockquote class="blockquote font-weight-medium">Los juegos de consola no tienen requerimientos.</blockquote>                          
                         </v-card>
                       </v-container>
-                    </v-flex>
+                    </v-flex>-->
                   </v-layout>
                 </v-container>
               </v-flex>
@@ -126,7 +127,7 @@ export default {
   computed: {},
   methods: {
     handleKeys: function(event) {
-      console.log(event);
+      //console.log(event);
     },
     icon:function(platform){
       switch (platform){
