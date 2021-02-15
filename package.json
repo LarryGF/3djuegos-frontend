@@ -1,6 +1,6 @@
 {
   "name": "GamesCatalog",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Nuxt + Electron",
   "author": "fsadannn <fsadannn@gmail.com>, larrygf <larrywt609@gmail.com>",
   "private": true,
@@ -40,9 +40,9 @@
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
-    "build": "electron-builder",
-    "buildpage": "nuxt build && cp -r pysrc static",
-    "nuxt-build": " nuxt build"
+    "build": "nuxt build --target server && electron-builder",
+    "buildpage": "nuxt server && cp -r pysrc static",
+    "nuxt-build": "nuxt build"
   },
   "dependencies": {
     "@mdi/font": "^3.6.95",

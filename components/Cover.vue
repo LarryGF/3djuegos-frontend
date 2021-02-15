@@ -66,6 +66,12 @@
   </v-flex>
 </template>
 
+<style scoped>
+div >>> .v-image__image--cover {
+  background-size: 100% 100%;
+}
+</style>
+
 <script>
 import Dialog from "../components/Dialog"
 export default {
