@@ -1,30 +1,41 @@
 {
   "name": "GamesCatalog",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Nuxt + Electron",
   "author": "fsadannn <fsadannn@gmail.com>, larrygf <larrywt609@gmail.com>",
   "private": true,
   "main": "main.js",
   "build": {
-    "appId": "GamesCatalog",
-    "productName": "GamesCatalog",
+    "appId": "AnimeCatalog",
+    "productName": "AnimeCatalog",
     "directories": {
       "buildResources": "static",
       "output": "compiled"
     },
-    "extraResources": [
-      "static/db/*"
-    ],
-    "compression": "store",
+    "asar": "true",
+    "compression": "maximum",
     "files": [
-      "**/*",
-      "static/**/*"
+      "assets/**/*",
+      "components/**/*",
+      "layouts/**/*",
+      "pages/**/*",
+      "store/**/*",
+      "node_modules/**/*",
+      ".nuxt/**/*",
+      "static/**/*",
+      "nuxt.config.js",
+      "main.js"
     ],
     "linux": {
       "target": "AppImage"
     },
-    "appImage": {
-      "systemIntegration": "doNotAsk"
+    "win": {
+      "target": "portable",
+      "verifyUpdateCodeSignature": "false",
+      "signAndEditExecutable": "false"
+    },
+    "electronDownload": {
+      "customDir": "C:\\Users\\SadanNN\\AppData\\Local\\electron\\Cache\\348b7a377ffc4a3750e0af1d7a1ebeb3494d03da5a5a3cb52e24f5a5c08c9907\\electron-v11.2.3-win32-x64.zip"
     }
   },
   "scripts": {
@@ -49,7 +60,8 @@
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "cross-env": "^5.1.4",
-    "electron-builder": "^20.8.1",
+    "electron": "^11.2.3",
+    "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^2.2.3",
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^3.0.0",

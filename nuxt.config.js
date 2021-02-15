@@ -2,7 +2,7 @@ module.exports = {
 	modules: [ '@nuxtjs/axios', '@nuxtjs/vuetify'],
 	mode: 'spa',
 	head: {
-		title: 'GamesCatalog',
+		title: 'Anime Catálogo',
 		meta: [{
 			charset: 'utf-8'
 		  },
@@ -20,9 +20,7 @@ module.exports = {
 			rel: 'icon',
 			type: 'image/x-icon',
 			href: '/favicon.ico'
-		  }
-		 
-		  ],
+		  }],
 }, // Headers of the page
 	loading: {color:'primary',height:'5px'}, // Disable default loading bar
 	loadingIndicator: {
