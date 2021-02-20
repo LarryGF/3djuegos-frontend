@@ -13,6 +13,7 @@
       >
         <v-expand-transition>
           <div
+           @click.stop="$emit('dialog',index)"
             v-if="hover"
             class="d-flex transition-fast-in-fast-out  v-card--reveal  white--text"
             style="height: 100%; background-color:rgba(0,0,0,0.7)"
