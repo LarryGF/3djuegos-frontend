@@ -45,8 +45,6 @@ export default {
       width: 0,
       backedGames: [],
       count: 0,
-      lower: 0, // set in creat
-      upper: 0, // set in creat
       fixedCount: 60, // number of anime to see, we use fixedCount*3 to simulate real scroll
       scrollCount: 0,
       savedPositionCover:0,
@@ -59,6 +57,12 @@ export default {
   computed: {
     showGames() {
       return this.$store.getters.getGamesToShow;
+    },
+    lower() {
+      return this.$store.getters.getLower;
+    },
+    upper() {
+      return this.$store.getters.getUpper;
     },
     filters() {
       return this.$store.getters.getFilters;
@@ -83,9 +87,9 @@ export default {
     if (!this.$store.state.filters) {
       this.$store.dispatch("fetchFilters");
     }
-    this.lower = 0;
-    this.upper = this.fixedCount*3;
-    this.$store.dispatch("callSetLimits", { from: this.lower, to: this.upper });
+    const lower = 0;
+    const upper = this.fixedCount*3;
+    this.$store.dispatch("callSetLimits", { from: lower, to: upper });
   },
   mounted() {
     // this.fetch()
@@ -122,44 +126,49 @@ export default {
     scroll: function() {
       window.onscroll = () => {
         const boundCount = this.fixedCount*3;
-        console.log('scroll');
+        //console.log('scroll');
         let bottomOfWindow =
           Math.abs(document.documentElement.scrollTop + window.innerHeight - document.documentElement.offsetHeight)<1;
-        console.log(document.documentElement.scrollTop);
+        /*console.log(document.documentElement.scrollTop);
         console.log(window.innerHeight);
         console.log(document.documentElement.scrollTop + window.innerHeight);
         console.log(document.documentElement.offsetHeight);
         console.log(bottomOfWindow);
         console.log(this.backedGames.length);
         console.log(this.changing);
-        console.log(bottomOfWindow && this.backedGames.length === 0 && !this.changing);
+        console.log(bottomOfWindow && this.backedGames.length === 0 && !this.changing);*/
         if (bottomOfWindow && this.backedGames.length === 0 && !this.changing) {
-          console.log('scroll down')
-          this.upper = this.upper + this.fixedCount;
-          this.lower = Math.max(0,this.upper-boundCount)
-          this.$store.dispatch("callSetLimits", {
-            from: this.lower,
-            to: this.upper
+          //console.log('scroll down')
+          const upper = this.upper + this.fixedCount;
+          const lower = Math.max(0,upper-boundCount)
+          this.$store.dispatch("testLimits", {
+            from: lower,
+            to: upper
           });
-          console.log(this.lower);
-          console.log(this.upper);
+          if(this.$store.getters.getlengthOfNewLimits===0) {return;}
+          this.$store.dispatch("callSetLimits", {
+            from: lower,
+            to: upper
+          });
+          //console.log(this.lower);
+          //console.log(this.upper);
           window.scrollTo(0, 1.81*document.documentElement.offsetHeight/3);
           return;
         }
 
         if (document.documentElement.scrollTop < 0.5 && this.lower > 1 && !this.changing) {
-          console.log('scroll up')
-          this.upper = this.upper - this.fixedCount;
-          this.lower = Math.max(0, this.upper-boundCount);
+          //console.log('scroll up')
+          const upper = this.upper - this.fixedCount;
+          const lower = Math.max(0, upper-boundCount);
           this.$store.dispatch("callSetLimits", {
-            from: this.lower,
-            to: this.upper
+            from: lower,
+            to: upper
           });
           window.scrollTo(0, 0.01*document.documentElement.offsetHeight/6);
         }
 
-        console.log(this.lower);
-        console.log(this.upper);
+        //console.log(this.lower);
+        //console.log(this.upper);
       };
     },
     // filter: function() {

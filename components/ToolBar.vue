@@ -11,9 +11,9 @@
             dark
               label="Filtrar por nombre"
               v-model="value"
-              @keyup.enter.native.stop="$store.dispatch('callSetTextFilter',value)"
+              @keyup.enter.native.stop="$store.dispatch('callSetLimits', {from: 0,to: 180});$store.dispatch('callSetTextFilter',value);"
               append-icon="cancel"
-              @click:append="$store.dispatch('callSetTextFilter','');value=''"
+              @click:append="$store.dispatch('callSetLimits', {from: 0,to: 180});$store.dispatch('callSetTextFilter','');value=''"
               class="mt-2"
           ></v-text-field>
         </v-flex>

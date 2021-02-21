@@ -6,7 +6,7 @@
         <v-chip
           :light="item"
           v-for="(item,key) in values"
-          :key="Math.random()"
+          :key="key"
           :selected="item"
           @click="select(key,item)"
         >
@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     select: function(key,item) {
+      this.$store.dispatch('callSetLimits', {from: 0,to: 180});
       this.$store.dispatch('callSetFilters',{filter:this.items,value:!item,key:key})
       // this.selected[this.selected.indexOf(item)].selected = !this.selected[indexOf(item)].selected
       // item.selected = !item.selected;
