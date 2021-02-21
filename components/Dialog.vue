@@ -1,11 +1,12 @@
-<template >
+<template>
   <v-layout row justify-center>
     <v-dialog
       v-model="dialog"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
-      @keydown="handleKeys($event)"
+      @keydown.esc="$emit('close')"
+
     >
       <v-card color="rgba(0,0,0,0.9)">
         <v-toolbar color="rgba(0,0,0,0.9)" fixed>
@@ -123,7 +124,7 @@ export default {
   computed: {},
   methods: {
     handleKeys: function(event) {
-      console.log(event);
+      console.log(this.$listeners);
       if (event.key == 'Escape'){
         this.$emit('close')
       }
