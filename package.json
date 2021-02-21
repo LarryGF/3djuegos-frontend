@@ -5,41 +5,10 @@
   "author": "fsadannn <fsadannn@gmail.com>, larrygf <larrywt609@gmail.com>",
   "private": true,
   "main": "main.js",
-  "build": {
-    "appId": "AnimeCatalog",
-    "productName": "AnimeCatalog",
-    "directories": {
-      "buildResources": "static",
-      "output": "compiled"
-    },
-    "asar": "true",
-    "compression": "maximum",
-    "files": [
-      "assets/**/*",
-      "components/**/*",
-      "layouts/**/*",
-      "pages/**/*",
-      "store/**/*",
-      "node_modules/**/*",
-      ".nuxt/**/*",
-      "static/**/*",
-      "nuxt.config.js",
-      "main.js"
-    ],
-    "linux": {
-      "target": "AppImage"
-    },
-    "win": {
-      "target": "portable",
-      "verifyUpdateCodeSignature": "false",
-      "signAndEditExecutable": "false"
-    },
-    "electronDownload": {
-    }
-  },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
-    "build": "nuxt build --target server && electron-builder -wl",
+    "build": "nuxt build --target server && node ./scripts/build.js wl",
+    "build:win": "nuxt build --target server && node ./scripts/build.js w",
     "buildpage": "nuxt server && cp -r pysrc static",
     "nuxt-build": "nuxt build"
   },
@@ -59,6 +28,7 @@
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "cross-env": "^5.1.4",
+    "dotenv": "^8.2.0",
     "electron": "^11.2.3",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^2.2.3",
