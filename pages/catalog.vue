@@ -45,8 +45,10 @@ export default {
       width: 0,
       backedGames: [],
       count: 0,
-      lower: 0,
-      upper: 100,
+      lower: 0, // set in creat
+      upper: 0, // set in creat
+      fixedCount: 60, // number of anime to see, we use fixedCount*3 to simulate real scroll
+      scrollCount: 0,
       savedPositionCover:0,
       savedPositionTime:0,
       changing:false,
@@ -81,6 +83,8 @@ export default {
     if (!this.$store.state.filters) {
       this.$store.dispatch("fetchFilters");
     }
+    this.lower = 0;
+    this.upper = this.fixedCount*3;
     this.$store.dispatch("callSetLimits", { from: this.lower, to: this.upper });
   },
   mounted() {
@@ -117,26 +121,45 @@ export default {
    
     scroll: function() {
       window.onscroll = () => {
-        //console.log('scroll');
+        const boundCount = this.fixedCount*3;
+        console.log('scroll');
         let bottomOfWindow =
           Math.abs(document.documentElement.scrollTop + window.innerHeight - document.documentElement.offsetHeight)<1;
-        /*console.log(document.documentElement.scrollTop + window.innerHeight);
-         console.log(document.documentElement.offsetHeight);
+        console.log(document.documentElement.scrollTop);
+        console.log(window.innerHeight);
+        console.log(document.documentElement.scrollTop + window.innerHeight);
+        console.log(document.documentElement.offsetHeight);
         console.log(bottomOfWindow);
         console.log(this.backedGames.length);
         console.log(this.changing);
-        console.log(bottomOfWindow && this.backedGames.length === 0 && !this.changing);*/
+        console.log(bottomOfWindow && this.backedGames.length === 0 && !this.changing);
         if (bottomOfWindow && this.backedGames.length === 0 && !this.changing) {
-          // for (var i = 0; i < 48; i++) {
-          //   this.count++;
-          //   this.showGames.push(this.games[this.count]);
-          // }
-          this.upper = this.upper + 50;
+          console.log('scroll down')
+          this.upper = this.upper + this.fixedCount;
+          this.lower = Math.max(0,this.upper-boundCount)
           this.$store.dispatch("callSetLimits", {
             from: this.lower,
             to: this.upper
           });
+          console.log(this.lower);
+          console.log(this.upper);
+          window.scrollTo(0, 1.81*document.documentElement.offsetHeight/3);
+          return;
         }
+
+        if (document.documentElement.scrollTop < 0.5 && this.lower > 1 && !this.changing) {
+          console.log('scroll up')
+          this.upper = this.upper - this.fixedCount;
+          this.lower = Math.max(0, this.upper-boundCount);
+          this.$store.dispatch("callSetLimits", {
+            from: this.lower,
+            to: this.upper
+          });
+          window.scrollTo(0, 0.01*document.documentElement.offsetHeight/6);
+        }
+
+        console.log(this.lower);
+        console.log(this.upper);
       };
     },
     // filter: function() {
