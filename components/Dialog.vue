@@ -5,7 +5,7 @@
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
-      @keyup="handleKeys($event)"
+      @keydown="handleKeys($event)"
     >
       <v-card color="rgba(0,0,0,0.9)">
         <v-toolbar color="rgba(0,0,0,0.9)" fixed>
@@ -62,7 +62,7 @@
                           <blockquote class="blockquote font-weight-medium">Tipo:&nbsp;&nbsp;{{game.type}}</blockquote>
                           <blockquote class="blockquote font-weight-medium">Géneros:</blockquote>
                           <v-layout row wrap>
-                            <blockquote class="blockquote" v-for="genre in game.genre"><v-icon>mdi-meteor</v-icon>{{genre}}</blockquote>
+                            <blockquote class="blockquote" v-for="genre in game.genre" :key="genre"><v-icon>mdi-meteor</v-icon>{{genre}}</blockquote>
                           </v-layout>
                         </v-card>
 
@@ -123,7 +123,10 @@ export default {
   computed: {},
   methods: {
     handleKeys: function(event) {
-      //console.log(event);
+      console.log(event);
+      if (event.key == 'Escape'){
+        this.$emit('close')
+      }
     },
     icon:function(platform){
       switch (platform){
