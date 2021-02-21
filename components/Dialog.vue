@@ -25,7 +25,7 @@
               <v-flex xs4>
                 <v-container text-xs-start justify-center>
                   <v-flex xs12>
-                    <v-container>
+                    <v-container class="mt-2">
                 <v-img :src="game.image"></v-img>
                 </v-container>
                   </v-flex>
@@ -33,8 +33,8 @@
               </v-flex>
               <v-flex xs8>
                 <v-container text-xs-start justify-center>
-                  <v-flex xs12>
-                    <v-container class="mb-0 pb-0">
+                  <v-flex xs12 v-if="this.game.description">
+                    <v-container class="mb-0 pb-0 mt-2">
                       <v-card >
                         <blockquote class="blockquote px-3">{{game.description}}</blockquote>
                       </v-card>
@@ -58,7 +58,7 @@
 
                         </v-card>
                       </v-container>-->
-                      <v-container>
+                      <v-container class="mt-2">
                         <v-card class="text-xs-left">
                           <blockquote class="blockquote font-weight-medium">Tipo:&nbsp;&nbsp;{{game.type}}</blockquote>
                           <blockquote class="blockquote font-weight-medium">Géneros:</blockquote>
