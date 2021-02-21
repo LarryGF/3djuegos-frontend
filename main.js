@@ -34,7 +34,6 @@ const path = require('path');
 const app = electron.app;
 
 const newWin = () => {
-	console.log('here')
 	win = new electron.BrowserWindow({
 		icon: path.join(__dirname, 'static/icon.png'),
 		webPreferences: {
