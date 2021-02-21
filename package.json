@@ -35,12 +35,11 @@
       "signAndEditExecutable": "false"
     },
     "electronDownload": {
-      "customDir": "C:\\Users\\SadanNN\\AppData\\Local\\electron\\Cache\\348b7a377ffc4a3750e0af1d7a1ebeb3494d03da5a5a3cb52e24f5a5c08c9907\\electron-v11.2.3-win32-x64.zip"
     }
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
-    "build": "nuxt build --target server && electron-builder",
+    "build": "nuxt build --target server && electron-builder -wl",
     "buildpage": "nuxt server && cp -r pysrc static",
     "nuxt-build": "nuxt build"
   },

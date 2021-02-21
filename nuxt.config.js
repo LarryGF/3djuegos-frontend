@@ -1,4 +1,5 @@
 module.exports = {
+	telemetry: false,
 	modules: [ '@nuxtjs/axios', '@nuxtjs/vuetify'],
 	mode: 'spa',
 	head: {
