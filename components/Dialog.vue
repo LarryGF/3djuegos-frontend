@@ -1,14 +1,13 @@
 <template>
-  <v-layout row justify-center>
+  <v-layout row justify-center >
     <v-dialog
       v-model="dialog"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
       @keydown.esc="$emit('close')"
-
     >
-      <v-card color="rgba(0,0,0,0.9)">
+      <v-card color="rgba(0,0,0,0.9)" @mousedown.capture="handleKeys">
         <v-toolbar color="rgba(0,0,0,0.9)" fixed>
           <v-spacer></v-spacer>
           <v-toolbar-title class="headline">{{game.name}}</v-toolbar-title>
@@ -123,9 +122,12 @@ export default {
   data: () => ({}),
   computed: {},
   methods: {
+    preventBack: function(){
+      ; 
+    },
     handleKeys: function(event) {
-      console.log(this.$listeners);
-      if (event.key == 'Escape'){
+     
+      if (event.button == 3){
         this.$emit('close')
       }
     },
