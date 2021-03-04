@@ -6,11 +6,11 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=DEV electron .",
-    "build": "nuxt build --target server && node ./scripts/build.js wl",
-    "build:win": "nuxt build --target server && node ./scripts/build.js w",
-    "buildpage": "nuxt server",
-    "nuxt-build": "nuxt build",
+    "dev": "node ./scripts/setpath.js && cross-env NODE_ENV=DEV electron .",
+    "build": "node ./scripts/setpath.js && nuxt build --target server && node ./scripts/build.js wl",
+    "build:win": "node ./scripts/setpath.js && nuxt build --target server && node ./scripts/build.js w",
+    "buildpage": "node ./scripts/setpath.js && nuxt server",
+    "nuxt-build": "node ./scripts/setpath.js && nuxt build",
     "serve-deploy": "cross-env NODE_ENV=DEPLOY node ./scripts/setpath.js && nuxt -c ./rproxy.nuxt.config.js",
     "build-deploy": "cross-env NODE_ENV=DEPLOY node ./scripts/setpath.js && nuxt build -c ./rproxy.nuxt.config.js"
   },

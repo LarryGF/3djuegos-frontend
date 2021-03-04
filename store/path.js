@@ -1,3 +1,3 @@
 
-export const dbPath = '/animes/db/db.json';
-export const filterPath = '/animes/db/filters.json';
+export const dbPath = '/db/db.json';
+export const filterPath = '/db/filters.json';
