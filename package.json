@@ -9,8 +9,10 @@
     "dev": "cross-env NODE_ENV=DEV electron .",
     "build": "nuxt build --target server && node ./scripts/build.js wl",
     "build:win": "nuxt build --target server && node ./scripts/build.js w",
-    "buildpage": "nuxt server && cp -r pysrc static",
-    "nuxt-build": "nuxt build"
+    "buildpage": "nuxt server",
+    "nuxt-build": "nuxt build",
+    "serve-deploy": "cross-env NODE_ENV=DEPLOY node ./scripts/setpath.js && nuxt -c ./rproxy.nuxt.config.js",
+    "build-deploy": "cross-env NODE_ENV=DEPLOY node ./scripts/setpath.js && nuxt build -c ./rproxy.nuxt.config.js"
   },
   "dependencies": {
     "@mdi/font": "^3.6.95",

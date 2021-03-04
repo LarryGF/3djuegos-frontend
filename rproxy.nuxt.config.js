@@ -32,6 +32,14 @@ module.exports = {
     color: 'rgba(125,125,125,1)',
     background: 'rgba(0,0,0,0)',
   },
+  router: {
+    base: '/animes',
+  },
+  render: {
+    static: {
+      prefix: true,
+    },
+  },
   build: {
     // extend (config, { isDev, isClient }) {
     // 	if (isDev && isClient) {

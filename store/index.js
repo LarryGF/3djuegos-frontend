@@ -1,3 +1,5 @@
+import { dbPath, filterPath } from './path';
+
 export const state = () => ({
   games: null,
   filters: null,
@@ -161,44 +163,54 @@ export const getters = {
 };
 export const actions = {
   async fetchGames({ commit }) {
-    this.$axios.get('/db/db.json').then((response) => {
-      let result = response.data;
-      commit('setGames', result);
-    });
+    this.$axios
+      .get(
+        `http://${window.location.href.split('//')[1].split('/')[0]}${dbPath}`
+      )
+      .then((response) => {
+        const result = response.data;
+        commit('setGames', result);
+      });
     // var result = require('../static/db/db.json')
-    commit('setGames', result);
+    //commit('setGames', result);
   },
   async fetchFilters({ commit }) {
-    // this.$axios.get("/db/filters.json").then(
-    //   (response) => {
-    //     let result = response.data
-    //     var dictio = {}
-    //     for (var filter in result) {
-    //       dictio[filter] = {}
-    //       result[filter].map(element =>
-    //         dictio[filter][element] = true)
-    //     }
-    //     commit('setFilters', dictio)
-    //   }
-    var result = require('../static/db/filters.json');
-    var dictio = {};
-    for (var filter in result) {
-      dictio[filter] = {};
-      result[filter].map((element) => (dictio[filter][element] = false));
-    }
-    dictio['letter'] = {};
-    dictio['letter_data'] = {};
-    for (var filter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') {
-      dictio['letter'][filter] = false;
-      dictio['letter_data'][filter] = filter + filter.toLowerCase();
-    }
-    dictio['letter']['0-9'] = false;
-    dictio['letter_data']['0-9'] = '0-9';
-    dictio['letter']['.'] = false;
-    dictio['letter_data']['.'] = '\\W';
-    //console.log(dictio)
-    commit('setFilters', dictio);
-    // )
+    this.$axios
+      .get(
+        `http://${
+          window.location.href.split('//')[1].split('/')[0]
+        }${filterPath}`
+      )
+      .then((response) => {
+        //   let result = response.data
+        //   var dictio = {}
+        //   for (var filter in result) {
+        //     dictio[filter] = {}
+        //     result[filter].map(element =>
+        //       dictio[filter][element] = true)
+        //   }
+        //   commit('setFilters', dictio)
+        // });
+        //var result = require('../static/db/filters.json');
+        const result = response.data;
+        var dictio = {};
+        for (var filter in result) {
+          dictio[filter] = {};
+          result[filter].map((element) => (dictio[filter][element] = false));
+        }
+        dictio['letter'] = {};
+        dictio['letter_data'] = {};
+        for (var filter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+          dictio['letter'][filter] = false;
+          dictio['letter_data'][filter] = filter + filter.toLowerCase();
+        }
+        dictio['letter']['0-9'] = false;
+        dictio['letter_data']['0-9'] = '0-9';
+        dictio['letter']['.'] = false;
+        dictio['letter_data']['.'] = '\\W';
+        //console.log(dictio)
+        commit('setFilters', dictio);
+      });
   },
   callSetLimits({ commit }, fromTo) {
     commit('setLimits', fromTo);
