@@ -70,16 +70,30 @@ function getGamesToShowFunc(state, lowerTest = null, upperTest = null) {
         )
       );
 
-      const applied_genre_filter = applied_genre_filter_val.size !== 0;
+      // construye un conjunto con los filtros de tipo activos
+      const applied_status_filter_val = new Set(
+        Object.keys(state.filters.status).filter(
+          (val) => state.filters.status[val]
+        )
+      );
 
-      if (!applied_genre_filter && !applied_letter_filter) {
-        return state.games.slice(lower, upper);
+      const applied_genre_filter = applied_genre_filter_val.size !== 0;
+      const applied_status_filter = applied_status_filter_val.size !== 0;
+
+      const applied_filters = [];
+
+      if (applied_letter_filter) {
+        applied_filters.push((games) =>
+          games.filter((game) => {
+            return !!game.name[0].match(rexpres);
+          })
+        );
       }
 
-      if (applied_genre_filter && !applied_letter_filter) {
-        return state.games
-          .filter((game) => {
-            const gameGenre = Array.from(game.genre).filter((val) =>
+      if (applied_genre_filter) {
+        applied_filters.push((games) =>
+          games.filter((game) => {
+            const gameGenre = Array.from(game.categories).filter((val) =>
               applied_genre_filter_val.has(val)
             );
             if (gameGenre.length === 0) {
@@ -87,31 +101,28 @@ function getGamesToShowFunc(state, lowerTest = null, upperTest = null) {
             }
             return true;
           })
-          .slice(lower, upper);
+        );
       }
 
-      if (!applied_genre_filter && applied_letter_filter) {
-        return state.games
-          .filter((game) => {
-            return !!game.name[0].match(rexpres);
+      if (applied_status_filter) {
+        applied_filters.push((games) =>
+          games.filter((game) => {
+            return applied_status_filter_val.has(game.status);
           })
-          .slice(lower, upper);
+        );
       }
 
-      return state.games
-        .filter((game) => {
-          return !!game.name[0].match(rexpres);
-        })
-        .filter((game) => {
-          const gameGenre = Array.from(game.genre).filter((val) =>
-            applied_genre_filter_val.has(val)
-          );
-          if (gameGenre.length === 0) {
-            return false;
-          }
-          return true;
-        })
-        .slice(lower, upper);
+      console.log(applied_filters);
+
+      let res = state.games;
+
+      for (let afilter of applied_filters) {
+        res = afilter(res);
+      }
+
+      res = res.slice(lower, upper);
+
+      return res;
     }
   } else {
     return null;

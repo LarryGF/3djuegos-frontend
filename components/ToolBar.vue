@@ -25,9 +25,8 @@
 
         <BottomSheet :label="'Géneros'" :color="'rgba(155,155,155,0.9)'" :items="'genres'"/>
         <BottomSheet :label="'Letra'" :color="'rgba(155,155,155,0.9)'" :items="'letter'"/>
-        <!--<BottomSheet :label="'Plataformas'" :color="'rgba(155,155,155,0.3)'" :items="'platforms'"/>
-        <BottomSheet :label="'Sistema Operativo'" :color="'rgba(155,155,155,0.6)'" :items="'os'"/>-->
-        <!-- <BottomSheet :label="'Desarrollador'" :color="'cyan'" :items="filters.publishers"/> -->
+        <BottomSheet :label="'Tipo'" :color="'rgba(155,155,155,0.9)'" :items="'status'"/>
+
      </v-layout>
       </v-flex>
     </v-toolbar>

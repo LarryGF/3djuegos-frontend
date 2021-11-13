@@ -25,7 +25,7 @@
                 <v-container text-xs-start justify-center>
                   <v-flex xs12>
                     <v-container class="mt-2">
-                <v-img :src="game.image"></v-img>
+                <v-img :src="'images/'+game.image"></v-img>
                 </v-container>
                   </v-flex>
                 </v-container>
@@ -41,66 +41,18 @@
                   </v-flex>
                   <v-layout row justify-start shrink>
                     <v-flex xs12>
-                      <!--<v-container>
-                        <v-card class="text-xs-left">
-                          <blockquote class="blockquote font-weight-medium">Fecha de publicación: </blockquote>
-                          <blockquote class="blockquote">{{game.datePublished}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">Plataformas:</blockquote>
-                          <blockquote class="blockquote " v-for="platform in game.gamePlatform">
-                            <v-icon v-html="icon(platform)">
-                            </v-icon>{{platform}}
-                          </blockquote>
-                          <blockquote  class="blockquote font-weight-medium">Rating:</blockquote>
-                          <blockquote v-if="dialog" class="blockquote"> {{game.aggregateRating.ratingCount ?game.aggregateRating.ratingValue:'?'}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">Desarrollador:</blockquote>
-                          <blockquote v-for="publisher in game.publisher" class="text-truncate blockquote">   <v-icon small class="mb-1">mdi-circle</v-icon> {{publisher}}</blockquote>
-
-                        </v-card>
-                      </v-container>-->
                       <v-container class="mt-2">
                         <v-card class="text-xs-left">
-                          <blockquote class="blockquote font-weight-medium">Tipo:&nbsp;&nbsp;{{game.type}}</blockquote>
-                          <blockquote class="blockquote font-weight-medium">Géneros:</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Tipo:&nbsp;&nbsp;{{game.classification}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium">Eposodios:&nbsp;&nbsp;{{game.episodes}}</blockquote>
+                          <blockquote class="blockquote font-weight-medium" style="padding-bottom:0">Géneros:</blockquote>
                           <v-layout row wrap>
-                            <blockquote class="blockquote" v-for="genre in game.genre" :key="genre"><v-icon>mdi-meteor</v-icon>{{genre}}</blockquote>
+                            <blockquote class="blockquote" v-for="genre in game.categories" :key="genre"><v-icon>mdi-meteor</v-icon>{{genre}}</blockquote>
                           </v-layout>
                         </v-card>
 
                       </v-container>
                     </v-flex>
-                    <!--<v-flex xs6>
-                      <v-container>
-                        <v-card v-if="dialog && game.details_pc">
-                          <blockquote class="blockquote font-weight-medium">REQUERIMIENTOS</blockquote>
-                          <blockquote class="blockquote text-xs-left">
-                          <blockquote class="heading font-weight-medium">Mínimos</blockquote>
-                          <blockquote class="subheading font-weight-medium">Sistema Operativo: {{game.details_pc.min.os}}</blockquote>
-                          <blockquote class="subheading font-weight-medium">Microprocesador: {{game.details_pc.min.micro}}</blockquote>
-                          <blockquote class="subheading font-weight-medium">RAM: {{game.details_pc.min.ram}}</blockquote>
-                          <blockquote class="subheading font-weight-medium">Tarjeta Gráfica: {{game.details_pc.min.tarjeta_grafica}}</blockquote>
-                          <blockquote class="subheading font-weight-medium">DirectX: {{game.details_pc.min.directX}}</blockquote>
-                          <blockquote class="subheading font-weight-medium">Tamaño: {{game.details_pc.min.size}}</blockquote>
-                          <br>
-                          <blockquote class="heading font-weight-medium">Recomendados</blockquote>
-                          <blockquote class="subheading font-weight-medium">Sistema Operativo: {{game.details_pc.max.os}}</blockquote>
-                          <blockquote class="subheading font-weight-medium">Microprocesador: {{game.details_pc.max.micro}}</blockquote>
-                          <blockquote class="subheading font-weight-medium">RAM: {{game.details_pc.max.ram}}</blockquote>
-                          <blockquote class="subheading font-weight-medium">Tarjeta Gráfica: {{game.details_pc.max.tarjeta_grafica}}</blockquote>
-                          <blockquote class="subheading font-weight-medium">DirectX: {{game.details_pc.max.directX}}</blockquote>
-                          <blockquote class="subheading font-weight-medium">Tamaño: {{game.details_pc.max.size}}</blockquote>
-                          
-
-                            
-                            </blockquote>
-                        </v-card>
-                        <v-card v-else-if="dialog && game.gamePlatform == 'PC'">
-                          <blockquote class="blockquote font-weight-medium">No contamos con los requisitos para este juego.</blockquote>                          
-                        </v-card>
-                        <v-card v-else>
-                          <blockquote class="blockquote font-weight-medium">Los juegos de consola no tienen requerimientos.</blockquote>                          
-                        </v-card>
-                      </v-container>
-                    </v-flex>-->
                   </v-layout>
                 </v-container>
               </v-flex>

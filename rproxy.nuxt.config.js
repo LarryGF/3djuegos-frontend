@@ -1,7 +1,7 @@
 module.exports = {
   telemetry: false,
   modules: ['@nuxtjs/axios', '@nuxtjs/vuetify'],
-  mode: 'spa',
+  ssr: false,
   head: {
     title: 'Anime Catálogo',
     meta: [

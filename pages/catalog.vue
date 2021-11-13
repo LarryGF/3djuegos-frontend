@@ -101,7 +101,7 @@ export default {
     openDialog: function(index){
       this.activeGame = this.showGames[index]
       this.dialog = true
-      //console.log(this.dialog)
+      console.log(this.activeGame)
     },
     onResize: function (){
        this.height = window.innerHeight;
